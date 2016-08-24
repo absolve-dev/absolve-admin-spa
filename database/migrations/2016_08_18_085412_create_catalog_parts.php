@@ -29,7 +29,7 @@ class CreateCatalogParts extends Migration
           $table->string("default_image_url")->default("");
           $table->timestamps();
         });
-        Schema::create("catalog_cards", function (Blueprint $table) {
+        Schema::create("catalog_items", function (Blueprint $table) {
           $table->increments("id");
           $table->string("name");
           $table->string("uid_string");
@@ -52,6 +52,6 @@ class CreateCatalogParts extends Migration
     {
       Schema::drop("catalogs");
       Schema::drop("catalog_sets");
-      Schema::drop("catalog_cards");
+      Schema::drop("catalog_items");
     }
 }

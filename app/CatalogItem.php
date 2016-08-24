@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CatalogCard extends Model
+class CatalogItem extends Model
 {
     //
     protected $fillable = [

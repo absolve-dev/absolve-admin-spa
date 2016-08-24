@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use App\Storage;
 use App\Catalog;
 use App\CatalogSet;
-use App\CatalogCard;
+use App\CatalogItem;
 
 class CatalogSyncYgoPrice extends Command
 {
@@ -102,7 +102,7 @@ class CatalogSyncYgoPrice extends Command
               "print_tag" => $setCardData["print_tag"]
             ];
 
-            $cardModel = CatalogCard::firstOrCreate([
+            $cardModel = CatalogItem::firstOrCreate([
               "name" => $cardName,
               "catalog_set_id" => $setModelId,
               "uid_string" => $outsideData["rarity"]
