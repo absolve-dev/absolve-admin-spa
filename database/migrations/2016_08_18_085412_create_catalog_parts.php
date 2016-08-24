@@ -16,7 +16,7 @@ class CreateCatalogParts extends Migration
         Schema::create("catalogs", function (Blueprint $table) {
           $table->increments("id");
           $table->string("name");
-          $table->string("default_image_url");
+          $table->string("default_image_url")->default("");
           $table->timestamps();
         });
         Schema::create("catalog_sets", function (Blueprint $table) {
@@ -26,18 +26,19 @@ class CreateCatalogParts extends Migration
           $table->foreign("catalog_id")
             ->references("id")->on("catalogs")
             ->onDelete("cascade");
-          $table->string("default_image_url");
+          $table->string("default_image_url")->default("");
           $table->timestamps();
         });
         Schema::create("catalog_cards", function (Blueprint $table) {
           $table->increments("id");
           $table->string("name");
+          $table->string("uid_string");
           $table->integer("catalog_set_id")->unsigned();
           $table->foreign("catalog_set_id")
             ->references("id")->on("catalog_sets")
             ->onDelete("cascade");
-          $table->string("json_data"); // meant for json data
-          $table->string("default_image_url");
+          $table->string("json_data")->default(""); // meant for json data
+          $table->string("default_image_url")->default("");
           $table->timestamps();
         });
     }
