@@ -65,6 +65,7 @@ class CatalogSyncYgoPrice extends Command
         if($setModel->default_image_url == ""){
           // grab set image
           echo "attempt to grab set image: $_setName\n";
+          $this->chill();
           $setImageResponse = (new \GuzzleHttp\Client())->request("GET", "http://yugiohprices.com/api/set_image/" . urlencode($_setName));
           $setImageStream = $setImageResponse->getBody()->getContents();
 
@@ -76,6 +77,7 @@ class CatalogSyncYgoPrice extends Command
 
         // grab set data
         echo "attempt to grab set data: $_setName\n";
+        $this->chill();
         $setBody = (new \GuzzleHttp\Client())->request("GET", "http://yugiohprices.com/api/set_data/" . urlencode($_setName))->getBody();
         $setArray = json_decode($setBody, true);
 
@@ -91,6 +93,7 @@ class CatalogSyncYgoPrice extends Command
 
           // retrieve card's data
           echo "attempt to grab card data: $cardName\n";
+          $this->chill();
           $fullCardBody = (new \GuzzleHttp\Client())->request("GET", "http://yugiohprices.com/api/card_data/" . urlencode($cardName))->getBody();
           $fullCardArray = json_decode($fullCardBody, true);
           if($fullCardArray["status"] == "success"){
@@ -118,9 +121,9 @@ class CatalogSyncYgoPrice extends Command
             if($cardModel->default_image_url == ""){
               // grab card image
               echo "attempt to grab card image: $cardName\n";
+              $this->chill();
               $cardImageResponse = (new \GuzzleHttp\Client())->request("GET", "http://yugiohprices.com/api/card_image/" . urlencode($cardName));
               $cardImageStream = $cardImageResponse->getBody()->getContents();
-
               $cardImagePath = "/catalog-card/$setModelId/$cardModelId.jpg";
               \Storage::disk("s3")->put($cardImagePath, $cardImageStream);
               $cardModel->default_image_url = $cardImagePath;
@@ -130,14 +133,18 @@ class CatalogSyncYgoPrice extends Command
           }else{
             echo "Single Card Data error.\n";
           }
-
-
-          // retrieve card image
         }
       }
 
       /* check for/create/update cards */
       //
 
+    }
+
+    protected function chill(){
+      // chill the fuck out
+      // or youll be in fucking time out
+      // so just chill for 1/5th of a second
+      usleep(1000000/5);
     }
 }
