@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('index');
 });
+
+Route::group(["prefix" => "/api/v1", "namespace" => "Api\V1"], function(){
+  Route::group(["prefix" => "/catalog"], function(){
+    Route::get("/", "CatalogController@getIndex");
+    Route::get("/{catalogId}", "CatalogController@getShow");
+  });
+});
