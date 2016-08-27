@@ -1,1 +1,9 @@
-Welcome Admin Catalog Index
+Welcome to Admin Catalog Index
+<h1>Catalogs</h1>
+<div ng-if="catalogs">
+  <ul>
+    <li ng-repeat="catalog in catalogs">
+      <a href="#/admin/catalog/{{ catalog.id }}">{{ catalog.name }}</a>
+    </li>
+  </ul>
+</div>
