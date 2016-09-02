@@ -2,4 +2,10 @@ Welcome to Admin Catalog Show
 
 <div ng-if="catalog">
   name: {{ catalog.name }}
+
+  <ul>
+    <li ng-repeat="set in catalog.sets">
+      <a ng-href="#/admin/catalog/set/{{ set.id }}">{{ set.id }} - {{ set.name }}</a>
+    </li>
+  </ul>
 </div>
