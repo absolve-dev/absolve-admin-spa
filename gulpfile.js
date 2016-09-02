@@ -21,7 +21,10 @@ elixir(function(mix) {
       "../angular/**/*.mdl.js",
       "../angular/**/*.js"
     ], "public/js/angular.dist.js")
-    .sass("site/**/*.scss", "public/css/site.css")
+    .sass([
+      "site/lib/**/*.css",
+      "site/**/*.scss"
+    ], "public/css/site.css")
     .copy("resources/assets/angular/**/*.tpl.html", "public/html/angular")
     .version([
       "js/lib.js",
