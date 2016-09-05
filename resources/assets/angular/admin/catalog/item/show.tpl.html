@@ -1,0 +1,16 @@
+Welcome to Admin Catalog Item Show
+
+<div class="row" ng-if="catalogItem">
+  <div class="col-xs-12">name: {{ catalogItem.name }}</div>
+  <div class="col-xs-12 col-md-4 col-lg-3" style="text-align:center;">
+    <img ng-src="{{ catalogItem.default_image_url }}" style="height:150px; max-width:100%;">
+    <p>
+      {{ catalogItem.id }} - {{ catalogItem.name }}
+    </p>
+    <ul>
+      <li ng-repeat="(itemKey, itemData) in catalogItem.json_data">
+        <b>{{ itemKey }}:</b> {{ itemData }}
+      </li>
+    </ul>
+  </div>
+</div>

@@ -3,7 +3,7 @@ Welcome to Admin Catalog Set Show
 <div class="row" ng-if="catalogSet">
   <div class="col-xs-12">name: {{ catalogSet.name }}</div>
   <div class="col-xs-12 col-md-4 col-lg-3" ng-repeat="item in catalogSet.items" style="text-align:center;">
-    <a ng-href="#/admin/catalog/set/item/{{ item.id }}">
+    <a ng-href="#/admin/catalog/item/{{ item.id }}">
       <img ng-src="{{ item.image_url }}" style="height:150px; max-width:100%;">
       <p>
         {{ item.id }} - {{ item.name }}

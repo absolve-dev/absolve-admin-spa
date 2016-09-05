@@ -20,6 +20,9 @@ Route::group(["prefix" => "/api/v1", "namespace" => "Api\V1"], function(){
     Route::group(["prefix" => "/set"], function(){
       Route::get("/{catalogSetId}", "CatalogSetController@getShow");
     });
+    Route::group(["prefix" => "/item"], function(){
+      Route::get("/{catalogItemId}", "CatalogItemController@getShow");
+    });
     Route::get("/", "CatalogController@getIndex");
     Route::get("/{catalogId}", "CatalogController@getShow");
   });
