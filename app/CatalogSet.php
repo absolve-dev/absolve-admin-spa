@@ -28,4 +28,20 @@ class CatalogSet extends Model
       return ($region && $bucket) ? "https://s3-$region.amazonaws.com/$bucket/$path" : false;
     }
     */
+    public function catalogItems(){
+      return $this->hasMany(CatalogItem::class);
+    }
+
+    public function getCatalogItemsSummary(){
+      $catalogItems = $this->catalogItems;
+      $finalCatalogItems = array();
+      foreach($catalogItems as $_catalogItem){
+        $_currentCatalogItem = array();
+        $_currentCatalogItem["name"] = $_catalogItem->name;
+        $_currentCatalogItem["id"] = $_catalogItem->id;
+        $_currentCatalogItem["image_url"] = $_catalogItem->default_image_url;
+        $finalCatalogItems[] = $_currentCatalogItem;
+      }
+      return $finalCatalogItems;
+    }
 }

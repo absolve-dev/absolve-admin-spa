@@ -14,4 +14,9 @@ class CatalogItem extends Model
       "json_data",
       "default_image_url"
     ];
+
+    public function getDefaultImageUrlAttribute($value){
+      // mutator to get the url
+      return $value ? \Storage::disk("s3")->getAdapter()->getClient()->getObjectUrl(env("S3_BUCKET", false),$value) : null;
+    }
 }

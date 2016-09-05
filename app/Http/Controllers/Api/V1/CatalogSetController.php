@@ -22,6 +22,11 @@ class CatalogSetController extends Controller
         ], 400);
       }
       $showCatalogSet = CatalogSet::find( (int)$catalogSetId );
-      return \Response::json($showCatalogSet);
+      return \Response::json(
+        array_merge(
+          $showCatalogSet->toArray(),
+          ["items" => $showCatalogSet->getCatalogItemsSummary()]
+        )
+      );
     }
 }
