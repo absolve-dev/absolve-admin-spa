@@ -19,12 +19,13 @@ class Catalog extends Model
     }
 
     public function getCatalogSetsSummary(){
-      $catalogSets = $this->catalogSets->toArray();
+      $catalogSets = $this->catalogSets;
       $finalCatalogSets = array();
       foreach($catalogSets as $_catalogSet){
         $_currentCatalog = array();
-        $_currentCatalog["name"] = $_catalogSet["name"];
+        $_currentCatalog["name"] = $_catalogSet->name;
         $_currentCatalog["id"] = $_catalogSet["id"];
+        $_currentCatalog["image_url"] = $_catalogSet->default_image_url;
         $finalCatalogSets[] = $_currentCatalog;
       }
       return $finalCatalogSets;

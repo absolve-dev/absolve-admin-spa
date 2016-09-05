@@ -1,11 +1,15 @@
 Welcome to Admin Catalog Show
 
-<div ng-if="catalog">
-  name: {{ catalog.name }}
-
-  <ul>
-    <li ng-repeat="set in catalog.sets">
-      <a ng-href="#/admin/catalog/set/{{ set.id }}">{{ set.id }} - {{ set.name }}</a>
-    </li>
-  </ul>
+<div class="row" ng-if="catalog">
+  <div class="col-xs-12">
+    name: {{ catalog.name }}
+  </div>
+  <div class="col-xs-12 col-md-4 col-lg-3" ng-repeat="set in catalog.sets" style="text-align:center;">
+    <a ng-href="#/admin/catalog/set/{{ set.id }}">
+      <img ng-src="{{ set.image_url }}" style="height:150px; max-width:100%;">
+      <p>
+        {{ set.id }} - {{ set.name }}
+      </p>
+    </a>
+  </div>
 </div>

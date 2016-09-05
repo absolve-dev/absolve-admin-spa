@@ -69,7 +69,7 @@ class CatalogSyncYgoPrice extends Command
           $setImageResponse = (new \GuzzleHttp\Client())->request("GET", "http://yugiohprices.com/api/set_image/" . urlencode($_setName));
           $setImageStream = $setImageResponse->getBody()->getContents();
 
-          $setImagePath = "/catalog-set/$setModelId.jpg";
+          $setImagePath = "catalog-set/$setModelId.jpg";
           \Storage::disk("s3")->put($setImagePath, $setImageStream);
           $setModel->default_image_url = $setImagePath;
           $setModel->save();
@@ -124,7 +124,7 @@ class CatalogSyncYgoPrice extends Command
               $this->chill();
               $cardImageResponse = (new \GuzzleHttp\Client())->request("GET", "http://yugiohprices.com/api/card_image/" . urlencode($cardName));
               $cardImageStream = $cardImageResponse->getBody()->getContents();
-              $cardImagePath = "/catalog-card/$setModelId/$cardModelId.jpg";
+              $cardImagePath = "catalog-card/$setModelId/$cardModelId.jpg";
               \Storage::disk("s3")->put($cardImagePath, $cardImageStream);
               $cardModel->default_image_url = $cardImagePath;
               $cardModel->save();
