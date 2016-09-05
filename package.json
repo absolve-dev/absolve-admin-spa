@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "gulp watch",
-    "postinstall": "gulp --production"
+    "postinstall": "gulp"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
