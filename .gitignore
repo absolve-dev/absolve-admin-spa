@@ -5,6 +5,7 @@
 /public/css/site.css
 /public/js/lib.js
 /public/js/site.js
+/public/js/angular.src.js
 /public/js/angular.dist.js
 /public/html
 Homestead.yaml

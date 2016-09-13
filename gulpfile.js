@@ -1,5 +1,11 @@
 var elixir = require('laravel-elixir');
 
+var gulp = require("gulp"),
+    concat = require("gulp-concat"),
+    jshint = require("gulp-jshint"),
+    sass = require("gulp-sass"),
+    minify = require("gulp-minify");
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -15,21 +21,55 @@ elixir.config.sourcemaps = false;
 
 elixir(function(mix) {
   //mix.sass("lib/**/*.css", "public/css/lib.css");
-  mix.scripts("lib/**/*.js", "public/js/lib.js")
-    .scripts("site/**/*.js", "public/js/site.js")
-    .scripts([
-      "../angular/**/*.mdl.js",
-      "../angular/**/*.js"
-    ], "public/js/angular.dist.js")
-    .sass([
-      "site/lib/**/*.css",
-      "site/**/*.scss"
-    ], "public/css/site.css")
-    .copy("resources/assets/angular/**/*.tpl.html", "public/html/angular")
+  mix.copy("resources/assets/angular/**/*.tpl.html", "public/html/angular")
     .version([
       "js/lib.js",
       "js/site.js",
       "js/angular.dist.js",
       "css/site.css"
     ]);
+});
+
+// separate tasks from elixir
+// gulp library-js && gulp site-js && gulp angular-js && gulp site-css && gulp
+
+// concat all js libraries
+gulp.task("library-js", function(){
+  return gulp.src(
+    ["resources/assets/js/lib/**/*.js"])
+    .pipe(concat("lib.js"))
+    .pipe(gulp.dest("public/js"));
+});
+
+// concat all site js
+gulp.task("site-js", function(){
+  return gulp.src(
+    ["resources/assets/js/site/**/*.js"])
+    .pipe(concat("site.js"))
+    .pipe(gulp.dest("public/js"));
+});
+
+// concat all site css
+gulp.task("site-css", function(){
+  return gulp.src(
+    [
+      "resources/assets/sass/site/lib/**/*.css",
+      "resources/assets/sass/site/**/*.scss"
+    ]).pipe(concat("site.css"))
+      .pipe(sass().on('error', sass.logError))
+      .pipe(gulp.dest('public/css'));
+});
+
+// concat all angular js
+gulp.task("angular-js", function(){
+  return gulp.src(
+    ["resources/assets/angular/**/*.js"])
+    .pipe(concat("angular.js"))
+    .pipe(minify({
+      ext: {
+        src: ".src.js",
+        min: ".dist.js"
+      },
+      mangle: false
+    })).pipe(gulp.dest("public/js"));
 });
