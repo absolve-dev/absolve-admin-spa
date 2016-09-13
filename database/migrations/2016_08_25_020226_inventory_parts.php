@@ -18,8 +18,9 @@ class InventoryParts extends Migration
           $table->integer("catalog_id")
             ->references("id")->on("catalogs");
           $table->text("name");
-          $table->boolean("active");
-          $table->string("image_url")->default(NULL);
+          $table->boolean("active")->default(true);
+          $table->text("image_url")->default("");
+          $table->timestamps();
         });
         // inventory set
         Schema::create("inventory_sets", function(Blueprint $table){
@@ -29,8 +30,9 @@ class InventoryParts extends Migration
           $table->integer("inventory_id")
             ->references("id")->on("inventories");
           $table->text("name");
-          $table->boolean("active");
-          $table->string("image_url")->default(NULL);
+          $table->boolean("active")->default(true);
+          $table->text("image_url")->default("");
+          $table->timestamps();
         });
 
         // inventory item
@@ -41,9 +43,10 @@ class InventoryParts extends Migration
           $table->integer("inventory_set_id")
             ->references("id")->on("inventory_sets");
           $table->text("name");
-          $table->boolean("active");
-          $table->string("image_url")->default(NULL);
+          $table->boolean("active")->default(true);
+          $table->text("image_url")->default("");
           $table->decimal("default_price", 8 , 2); // 8 precision, 2 scale
+          $table->timestamps();
         });
 
         // inventory listing - generic
@@ -52,10 +55,11 @@ class InventoryParts extends Migration
           $table->integer("inventory_item_id")
             ->references("id")->on("inventory_items");
           $table->text("name");
-          $table->boolean("active");
-          $table->string("image_url")->default(NULL);
+          $table->boolean("active")->default(true);
+          $table->text("image_url")->default("");
           $table->decimal("price", 8 , 2); // 8 precision, 2 scale
           $table->integer("quantity")->default(0);
+          $table->timestamps();
         });
     }
 
