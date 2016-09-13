@@ -2,7 +2,6 @@ var elixir = require('laravel-elixir');
 
 var gulp = require("gulp"),
     concat = require("gulp-concat"),
-    jshint = require("gulp-jshint"),
     sass = require("gulp-sass"),
     minify = require("gulp-minify");
 
