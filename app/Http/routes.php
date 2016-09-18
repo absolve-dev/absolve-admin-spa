@@ -11,8 +11,12 @@
 |
 */
 
-Route::get('/admin/', function () {
+Route::get('/', function () {
     return view('index');
+});
+
+Route::get('/admin/', function () {
+    return view('admin/index');
 });
 
 Route::group(["prefix" => "/api/v1", "namespace" => "Api\V1"], function(){
