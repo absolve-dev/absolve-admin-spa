@@ -53,6 +53,7 @@ gulp.task("site-css", function(){
   return gulp.src(
     [
       "resources/assets/sass/site/lib/**/*.css",
+      "resources/assets/sass/site/lib/font-awesome/font-awesome.scss", // custom for FA
       "resources/assets/sass/site/**/*.scss"
     ]).pipe(concat("site.css"))
       .pipe(sass().on('error', sass.logError))
