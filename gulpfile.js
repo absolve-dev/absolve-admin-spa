@@ -63,7 +63,8 @@ gulp.task("site-css", function(){
 // concat all angular js
 gulp.task("angular-js", function(){
   return gulp.src(
-    ["resources/assets/angular/**/*.js"])
+    [ "resources/assets/angular/**/*.mdl.js",
+      "resources/assets/angular/**/*.js"])
     .pipe(concat("angular.js"))
     .pipe(minify({
       ext: {
