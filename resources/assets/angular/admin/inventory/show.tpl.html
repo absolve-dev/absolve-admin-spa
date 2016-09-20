@@ -1,0 +1,15 @@
+Welcome to Admin Inventory Show
+
+<div class="row" ng-if="inventory">
+  <div class="col-xs-12">
+    name: {{ inventory.name }}
+  </div>
+  <div class="col-xs-12 col-md-4 col-lg-3" ng-repeat="set in inventory.sets" style="text-align:center;">
+    <a ng-href="#inventory/set/{{ set.id }}">
+      <img ng-src="{{ set.image_url }}" style="height:150px; max-width:100%;">
+      <p>
+        {{ set.id }} - {{ set.name }}
+      </p>
+    </a>
+  </div>
+</div>

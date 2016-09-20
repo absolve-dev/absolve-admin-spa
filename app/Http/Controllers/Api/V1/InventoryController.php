@@ -13,13 +13,15 @@ class InventoryController extends Controller
 {
     public function index(){
       // get method
-      return \Response::json("hello inventory index");
+      $inventories = Inventory::all();
+      return \Response::json($inventories);
     }
     public function create(){
+      // NOT IMPLEMENTED!!!
+
       // post method
       return \Response::json("hello inventory create");
     }
-
     public function show(Request $request, $inventoryId){
       // get method
       if(!is_numeric($inventoryId)){
@@ -29,9 +31,18 @@ class InventoryController extends Controller
           "message" => "Not a valid inventory ID"
         ], 400);
       }
-      return \Response::json("hello inventory show");
+      $inventory = Inventory::find($inventoryId);
+
+      return \Response::json(
+        array_merge(
+          $inventory->toArray(),
+          ["sets" => $inventory->getInventorySetsSummary()]
+        )
+      );
     }
     public function update(Request $request, $inventoryId){
+      // NOT IMPLEMENTED!!!
+
       // post method
       if(!is_numeric($inventoryId)){
         // must be numeric so stop
