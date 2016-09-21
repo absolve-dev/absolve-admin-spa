@@ -38,7 +38,6 @@ Route::group(["prefix" => "/api/v1", "namespace" => "Api\V1"], function(){
     Route::get("/{inventoryId}", "InventoryController@show");
     Route::post("/{inventoryId}", "InventoryController@update");
     Route::group(["prefix" => "/set"], function(){
-      Route::get("/", "InventorySetController@index");
       Route::post("/", "InventorySetController@create");
       Route::get("/{inventorySetId}", "InventorySetController@show");
       Route::post("/{inventorySetId}", "InventorySetController@update");

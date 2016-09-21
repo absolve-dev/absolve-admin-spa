@@ -21,6 +21,22 @@ class InventorySet extends Model
   public function catalogSet(){
     return $this->belongsTo("App\CatalogSet");
   }
+  public function inventoryItems(){
+    return $this->hasMany("App\InventoryItem");
+  }
+
+  public function getInventoryItemsSummary(){
+    $inventoryItems = $this->inventoryItems;
+    $finalInventoryItems = array();
+    foreach($inventoryItems as $_inventoryItem){
+      $_currentInventoryItem = array();
+      $_currentInventoryItem["name"] = $_inventoryItem->name;
+      $_currentInventoryItem["id"] = $_inventoryItem["id"];
+      $_currentInventoryItem["image_url"] = $_inventoryItem->image_url;
+      $finalInventoryItems[] = $_currentInventoryItem;
+    }
+    return $finalInventoryItems;
+  }
 
   // fill mutators
   public function getImageUrlAttribute($value){

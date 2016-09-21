@@ -11,11 +11,9 @@ use App\InventorySet;
 
 class InventorySetController extends Controller
 {
-    public function index(){
-      // get method
-      return \Response::json("hello inventory set index");
-    }
     public function create(){
+      // NOT IMPLEMENTED !!!
+
       // post method
       return \Response::json("hello inventory set create");
     }
@@ -29,9 +27,16 @@ class InventorySetController extends Controller
           "message" => "Not a valid inventory ID"
         ], 400);
       }
-      return \Response::json("hello inventory set show");
+      $inventorySet = InventorySet::find($inventorySetId);
+      return \Response::json(
+        array_merge(
+          $inventorySet->toArray(),
+          ["items" => $inventorySet->getInventoryItemsSummary()]
+      ));
     }
     public function update(Request $request, $inventorySetId){
+      // NOT IMPLEMENTED !!!
+      
       // post method
       if(!is_numeric($inventorySetId)){
         // must be numeric so stop
