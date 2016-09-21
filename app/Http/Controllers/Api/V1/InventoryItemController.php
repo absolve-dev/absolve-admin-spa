@@ -12,11 +12,9 @@ use App\InventoryItem;
 class InventoryItemController extends Controller
 {
     //
-    public function index(){
-      // get method
-      return \Response::json("hello inventory item index");
-    }
     public function create(){
+      // NOT IMPLEMENTED !!!
+
       // post method
       return \Response::json("hello inventory item create");
     }
@@ -30,9 +28,17 @@ class InventoryItemController extends Controller
           "message" => "Not a valid inventory item ID"
         ], 400);
       }
-      return \Response::json("hello inventory item show");
+      $inventoryItem = InventoryItem::find($inventoryItemId);
+      return \Response::json(
+        array_merge(
+          $inventoryItem->toArray(),
+          ["listings" => $inventoryItem->getInventoryListingsSummary()]
+        )
+      );
     }
     public function update(Request $request, $inventoryItemId){
+      // NOT IMPLEMENTED !!!
+
       // post method
       if(!is_numeric($inventoryItemId)){
         // must be numeric so stop

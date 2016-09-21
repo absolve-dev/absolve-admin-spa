@@ -1,0 +1,23 @@
+Welcome to Admin Inventory Item Show
+
+<div class="row" ng-if="inventoryItem">
+  <div class="col-xs-12">name: {{ inventoryItem.name }}</div>
+  <div class="col-xs-12">
+    <img ng-src="{{ inventoryItem.image_url }}" style="height:150px; max-width:100%;">
+    <p>
+      {{ inventoryItem.id }} - {{ inventoryItem.name }}
+    </p>
+    <ul>
+      <li ng-repeat="(itemKey, itemData) in inventoryItem.json_data">
+        <b>{{ itemKey }}:</b> {{ itemData }}
+      </li>
+    </ul>
+    <ul ng-if="inventoryItem.listings">
+      <li ng-repeat="inventoryListing in inventoryItem.listings">
+        <a ng-href="#/inventory/listing/{{ inventoryListing.id }}">
+          {{  inventoryListing.id  }} - {{  inventoryListing.name  }}
+        </a>
+      </div>
+    </ul>
+  </div>
+</div>
