@@ -1,21 +1,25 @@
 Welcome to Admin Inventory Item Show
 
 <div class="row" ng-if="inventoryItem">
-  <div class="col-xs-12">name: {{ inventoryItem.name }}</div>
   <div class="col-xs-12">
-    <img ng-src="{{ inventoryItem.image_url }}" style="height:150px; max-width:100%;">
-    <p>
-      {{ inventoryItem.id }} - {{ inventoryItem.name }}
-    </p>
+    <img ng-src="{{ inventoryItem.image_url }}" style="height:150px; max-width:100%;"><br>
+    Name: {{ inventoryItem.id }} - {{ inventoryItem.name }}</div>
+  <div class="col-xs-12" ng-if="inventoryItem.catalog_item">
+    Backing Catalog Item: {{ inventoryItem.catalog_item.id }} - {{ inventoryItem.catalog_item.name }}
+  </div>
+  <div class="col-xs-12">
     <ul>
       <li ng-repeat="(itemKey, itemData) in inventoryItem.json_data">
         <b>{{ itemKey }}:</b> {{ itemData }}
       </li>
     </ul>
-    <ul ng-if="inventoryItem.listings">
-      <li ng-repeat="inventoryListing in inventoryItem.listings">
-        {{  inventoryListing.id  }} - {{  inventoryListing.name  }} - Price: {{ inventoryListing.price | currency : "$" : 2 }} | Qty: {{ inventoryListing.quantity }}
-      </div>
-    </ul>
+    <div ng-if="inventoryItem.listings">
+      Listings:
+      <ul>
+        <li ng-repeat="inventoryListing in inventoryItem.listings">
+          {{  inventoryListing.id  }} - {{  inventoryListing.name  }} - Price: {{ inventoryListing.price | currency : "$" : 2 }} | Qty: {{ inventoryListing.quantity }}
+        </div>
+      </ul>
+    </div>
   </div>
 </div>
