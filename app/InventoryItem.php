@@ -21,6 +21,8 @@ class InventoryItem extends Model
       foreach($inventoryListings as $_inventoryListing){
         $_currentInventoryListing = array();
         $_currentInventoryListing["name"] = $_inventoryListing->name;
+        $_currentInventoryListing["price"] = $_inventoryListing->price;
+        $_currentInventoryListing["quantity"] = $_inventoryListing->quantity;
         $_currentInventoryListing["id"] = $_inventoryListing["id"];
         $finalInventoryListings[] = $_currentInventoryListing;
       }

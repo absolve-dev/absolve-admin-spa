@@ -14,9 +14,7 @@ Welcome to Admin Inventory Item Show
     </ul>
     <ul ng-if="inventoryItem.listings">
       <li ng-repeat="inventoryListing in inventoryItem.listings">
-        <a ng-href="#/inventory/listing/{{ inventoryListing.id }}">
-          {{  inventoryListing.id  }} - {{  inventoryListing.name  }}
-        </a>
+        {{  inventoryListing.id  }} - {{  inventoryListing.name  }} - Price: {{ inventoryListing.price | currency : "$" : 2 }} | Qty: {{ inventoryListing.quantity }}
       </div>
     </ul>
   </div>
