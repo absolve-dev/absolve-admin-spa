@@ -1,9 +1,17 @@
-Welcome to Admin Inventory Index
-<h1>Inventories</h1>
-<div ng-if="inventories">
-  <ul>
-    <li ng-repeat="inventory in inventories">
-      <a href="#/inventory/{{ inventory.id }}">{{ inventory.name }}</a>
-    </li>
-  </ul>
+<div class="row">
+  <div class="col-xs-10">
+    <h1>Inventories</h1>
+  </div>
+  <div class="col-xs-2">
+    <inventory-create></inventory-create>
+  </div>
+</div>
+<div class="row">
+  <div ng-if="inventories">
+    <ul>
+      <li ng-repeat="inventory in inventories">
+        <a href="#/inventory/{{ inventory.id }}">{{ inventory.name }}</a>
+      </li>
+    </ul>
+  </div>
 </div>

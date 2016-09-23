@@ -16,6 +16,7 @@ class InventoryParts extends Migration
         Schema::create("inventories", function(Blueprint $table){
           $table->increments("id");
           $table->integer("catalog_id")
+            ->nullable()
             ->references("id")->on("catalogs");
           $table->text("name");
           $table->boolean("active")->default(true);
@@ -26,6 +27,7 @@ class InventoryParts extends Migration
         Schema::create("inventory_sets", function(Blueprint $table){
           $table->increments("id");
           $table->integer("catalog_set_id")
+            ->nullable()
             ->references("id")->on("catalog_sets");
           $table->integer("inventory_id")
             ->references("id")->on("inventories");
@@ -39,6 +41,7 @@ class InventoryParts extends Migration
         Schema::create("inventory_items", function(Blueprint $table){
           $table->increments("id");
           $table->integer("catalog_item_id")
+            ->nullable()
             ->references("id")->on("catalog_items");
           $table->integer("inventory_set_id")
             ->references("id")->on("inventory_sets");
@@ -53,6 +56,7 @@ class InventoryParts extends Migration
         Schema::create("inventory_listings", function(Blueprint $table){
           $table->increments("id");
           $table->integer("inventory_item_id")
+            ->nullable()
             ->references("id")->on("inventory_items");
           $table->text("name");
           $table->boolean("active")->default(true);

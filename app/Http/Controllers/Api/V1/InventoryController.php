@@ -16,11 +16,13 @@ class InventoryController extends Controller
       $inventories = Inventory::all();
       return \Response::json($inventories);
     }
-    public function create(){
-      // NOT IMPLEMENTED!!!
-
+    public function create(Request $request){
       // post method
-      return \Response::json("hello inventory create");
+      $newInventory = Inventory::create(array(
+        "name" => $request->input("name"),
+        "active" => $request->input("active")
+      ));
+      return \Response::json($newInventory);
     }
     public function show(Request $request, $inventoryId){
       // get method
