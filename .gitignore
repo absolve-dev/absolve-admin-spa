@@ -3,8 +3,10 @@
 /public/storage
 /public/build
 /public/css/site.css
-/public/js/lib.js
-/public/js/site.js
+/public/js/lib.src.js
+/public/js/lib.dist.js
+/public/js/site.src.js
+/public/js/site.dist.js
 /public/js/angular.src.js
 /public/js/angular.dist.js
 /public/html

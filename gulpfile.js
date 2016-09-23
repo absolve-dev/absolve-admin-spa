@@ -22,8 +22,8 @@ elixir(function(mix) {
   //mix.sass("lib/**/*.css", "public/css/lib.css");
   mix.copy("resources/assets/angular/**/*.tpl.html", "public/html/angular")
     .version([
-      "js/lib.js",
-      "js/site.js",
+      "js/lib.dist.js",
+      "js/site.dist.js",
       "js/angular.dist.js",
       "css/site.css"
     ]);
@@ -37,6 +37,13 @@ gulp.task("library-js", function(){
   return gulp.src(
     ["resources/assets/js/lib/**/*.js"])
     .pipe(concat("lib.js"))
+    .pipe(minify({
+      ext: {
+        src: ".src.js",
+        min: ".dist.js"
+      },
+      mangle: false
+    }))
     .pipe(gulp.dest("public/js"));
 });
 
@@ -45,6 +52,13 @@ gulp.task("site-js", function(){
   return gulp.src(
     ["resources/assets/js/site/**/*.js"])
     .pipe(concat("site.js"))
+    .pipe(minify({
+      ext: {
+        src: ".src.js",
+        min: ".dist.js"
+      },
+      mangle: false
+    }))
     .pipe(gulp.dest("public/js"));
 });
 
