@@ -3,13 +3,25 @@ angular.module("absolve.admin.inventory")
     // returns "this"
 
     this.create = function(newInventoryData, successCallback){
+      // check for properly passed inventory data
       $http.post("/api/v1/inventory", {
         name: newInventoryData.name,
         active: newInventoryData.active
-        //name: newInventoryData.name,
-        //active: newInventoryData.active,
         //image: newInventoryData.image
-      }).success(function(response) {
+      }).success(function(successResponse) {
+        successCallback(successResponse.data);
+      }).error(function(response) {
+        console.log(response);
+      });
+    };
+    this.update = function(inventoryId, updateInventoryData, successCallback){
+      // check for properly passed inventory id and data
+      console.log(inventoryId);
+      $http.post("/api/v1/inventory/" + inventoryId, {
+        name: updateInventoryData.name,
+        active: updateInventoryData.active
+        //image: newInventoryData.image
+      }).success(function(successResponse) {
         successCallback(successResponse.data);
       }).error(function(response) {
         console.log(response);

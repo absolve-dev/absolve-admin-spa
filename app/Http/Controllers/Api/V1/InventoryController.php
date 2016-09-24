@@ -43,8 +43,6 @@ class InventoryController extends Controller
       );
     }
     public function update(Request $request, $inventoryId){
-      // NOT IMPLEMENTED!!!
-
       // post method
       if(!is_numeric($inventoryId)){
         // must be numeric so stop
@@ -53,6 +51,11 @@ class InventoryController extends Controller
           "message" => "Not a valid inventory ID"
         ], 400);
       }
-      return \Response::json("hello inventory update");
+      $updateInventory = Inventory::find($inventoryId);
+      $updateInventory->update(array(
+        "name" => $request->input("name"),
+        "active" => $request->input("active")
+      ));
+      return \Response::json($updateInventory);
     }
 }

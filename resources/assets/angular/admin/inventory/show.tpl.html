@@ -1,8 +1,11 @@
 Welcome to Admin Inventory Show
 
 <div class="row" ng-if="inventory">
-  <div class="col-xs-12">
+  <div class="col-xs-10">
     Inventory Name: {{ inventory.id }} - {{ inventory.name }}
+  </div>
+  <div class="col-xs-2">
+    <inventory-update></inventory-update>
   </div>
   <div class="col-xs-12" ng-if="inventory.catalog">
     Backing Catalog: {{ inventory.catalog.id }} - {{ inventory.catalog.name }}
