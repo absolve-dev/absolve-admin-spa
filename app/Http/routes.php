@@ -22,21 +22,17 @@ Route::get('/admin/', function () {
 Route::group(["prefix" => "/api/v1", "namespace" => "Api\V1"], function(){
 
   Route::group(["prefix" => "/catalog"], function(){
-    Route::get("/", "CatalogController@getIndex");
-    Route::get("/{catalogId}", "CatalogController@getShow");
     Route::group(["prefix" => "/set"], function(){
       Route::get("/{catalogSetId}", "CatalogSetController@getShow");
     });
     Route::group(["prefix" => "/item"], function(){
       Route::get("/{catalogItemId}", "CatalogItemController@getShow");
     });
+    Route::get("/", "CatalogController@getIndex");
+    Route::get("/{catalogId}", "CatalogController@getShow");
   });
 
   Route::group(["prefix" => "/inventory"], function(){
-    Route::get("/", "InventoryController@index");
-    Route::post("/", "InventoryController@create");
-    Route::get("/{inventoryId}", "InventoryController@show");
-    Route::post("/{inventoryId}", "InventoryController@update");
     Route::group(["prefix" => "/set"], function(){
       Route::post("/", "InventorySetController@create");
       Route::get("/{inventorySetId}", "InventorySetController@show");
@@ -53,6 +49,10 @@ Route::group(["prefix" => "/api/v1", "namespace" => "Api\V1"], function(){
       Route::get("/{inventoryListingId}", "InventoryListingController@show");
       Route::post("/{inventoryListingId}", "InventoryListingController@update");
     });
+    Route::get("/", "InventoryController@index");
+    Route::post("/", "InventoryController@create");
+    Route::get("/{inventoryId}", "InventoryController@show");
+    Route::post("/{inventoryId}", "InventoryController@update");
   });
 
 });

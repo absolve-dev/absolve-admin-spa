@@ -11,11 +11,14 @@ use App\InventorySet;
 
 class InventorySetController extends Controller
 {
-    public function create(){
-      // NOT IMPLEMENTED !!!
-
+    public function create(Request $request){
+      $newInventorySet = InventorySet::create(array(
+        "name" => $request->input("name"),
+        "active" => $request->input("active"),
+        "inventory_id" => $request->input("inventory_id")
+      ));
       // post method
-      return \Response::json("hello inventory set create");
+      return \Response::json($newInventorySet);
     }
 
     public function show(Request $request, $inventorySetId){
@@ -35,8 +38,6 @@ class InventorySetController extends Controller
       ));
     }
     public function update(Request $request, $inventorySetId){
-      // NOT IMPLEMENTED !!!
-      
       // post method
       if(!is_numeric($inventorySetId)){
         // must be numeric so stop
@@ -45,6 +46,11 @@ class InventorySetController extends Controller
           "message" => "Not a valid inventory ID"
         ], 400);
       }
-      return \Response::json("hello inventory set update");
+      $updateInventorySet = InventorySet::find($inventorySetId);
+      $updateInventorySet->update(array(
+        "name" => $request->input("name"),
+        "active" => $request->input("active")
+      ));
+      return \Response::json($updateInventorySet);
     }
 }
