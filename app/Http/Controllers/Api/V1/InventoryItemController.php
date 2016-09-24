@@ -12,11 +12,16 @@ use App\InventoryItem;
 class InventoryItemController extends Controller
 {
     //
-    public function create(){
-      // NOT IMPLEMENTED !!!
+    public function create(Request $request){
+      $newInventoryItem = InventoryItem::create(array(
+        "name" => $request->input("name"),
+        "active" => $request->input("active"),
+        "inventory_set_id" => $request->input("inventory_set_id"),
+        "default_price" => $request->input("default_price"),
 
+      ));
       // post method
-      return \Response::json("hello inventory item create");
+      return \Response::json($newInventoryItem);
     }
 
     public function show(Request $request, $inventoryItemId){
@@ -37,8 +42,6 @@ class InventoryItemController extends Controller
       );
     }
     public function update(Request $request, $inventoryItemId){
-      // NOT IMPLEMENTED !!!
-
       // post method
       if(!is_numeric($inventoryItemId)){
         // must be numeric so stop
@@ -47,6 +50,12 @@ class InventoryItemController extends Controller
           "message" => "Not a valid inventory item ID"
         ], 400);
       }
-      return \Response::json("hello inventory item update");
+      $updateInventoryItem = InventoryItem::find($inventoryItemId);
+      $updateInventoryItem->update(array(
+        "name" => $request->input("name"),
+        "active" => $request->input("active"),
+        "default_price" => $request->input("default_price"),
+      ));
+      return \Response::json($updateInventoryItem);
     }
 }

@@ -1,0 +1,24 @@
+<div>
+  <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#update-inventory-item-modal">
+    <i class="fa fa-edit fa2"></i> Update Inventory Item
+  </button>
+  <div class="modal fade" id="update-inventory-item-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal"><span>&times;</span></button>
+          <h4>Update Inventory Item</h4>
+        </div>
+        <div class="modal-body">
+          Name: <input type="text" name="name" ng-model="updateInventoryItemData.name"><br>
+          Active: <input type="checkbox" ng-model="updateInventoryItemData.active"><br>
+          Default Price: <input type="text" ng-model="updateInventoryItemData.default_price">
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="submitUpdate()">Update</button>
+          <button class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

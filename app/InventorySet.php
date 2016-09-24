@@ -33,6 +33,7 @@ class InventorySet extends Model
       $_currentInventoryItem["name"] = $_inventoryItem->name;
       $_currentInventoryItem["id"] = $_inventoryItem["id"];
       $_currentInventoryItem["image_url"] = $_inventoryItem->image_url;
+      $_currentInventoryItem["default_price"] = $_inventoryItem->default_price;
       $finalInventoryItems[] = $_currentInventoryItem;
     }
     return $finalInventoryItems;

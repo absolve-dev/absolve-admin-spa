@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class InventoryItem extends Model
 {
+    protected $fillable = [
+      "catalog_item_id",
+      "inventory_set_id",
+      "name",
+      "active",
+      "default_price"
+    ];
     //
     // first, define relationships
     public function catalogItem(){

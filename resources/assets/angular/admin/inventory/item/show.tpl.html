@@ -1,9 +1,14 @@
 Welcome to Admin Inventory Item Show
 
 <div class="row" ng-if="inventoryItem">
-  <div class="col-xs-12">
+  <div class="col-xs-10">
     <img ng-src="{{ inventoryItem.image_url }}" style="height:150px; max-width:100%;"><br>
-    Name: {{ inventoryItem.id }} - {{ inventoryItem.name }}</div>
+    Name: {{ inventoryItem.id }} - {{ inventoryItem.name }} <br>
+    Default Price: {{ inventoryItem.default_price | currency: "$" }}
+  </div>
+  <div class="col-xs-2">
+    <inventory-item-update></inventory-item-update>
+  </div>
   <div class="col-xs-12" ng-if="inventoryItem.catalog_item">
     Backing Catalog Item: {{ inventoryItem.catalog_item.id }} - {{ inventoryItem.catalog_item.name }}
   </div>

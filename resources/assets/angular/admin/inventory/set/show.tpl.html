@@ -1,15 +1,16 @@
 Welcome to Admin Inventory Set Show
 
 <div class="row" ng-if="inventorySet">
+  <div class="col-xs-12" ng-if="inventorySet.catalog_set">
+    Backing Catalog Set: {{ inventorySet.catalog_set.id }} - {{ inventorySet.catalog_set.name }}
+  </div>
   <div class="col-xs-10">
     <img ng-src="{{ inventorySet.image_url }}" style="height:150px; max-width:100%;"><br>
     Name: {{ inventorySet.id }} - {{ inventorySet.name }}
   </div>
   <div class="col-xs-2">
     <inventory-set-update></inventory-set-update>
-  </div>
-  <div class="col-xs-12" ng-if="inventorySet.catalog_set">
-    Backing Catalog Set: {{ inventorySet.catalog_set.id }} - {{ inventorySet.catalog_set.name }}
+    <inventory-item-create></inventory-item-create>
   </div>
   <div class="col-xs-12 col-md-4 col-lg-3" ng-repeat="item in inventorySet.items" style="text-align:center;">
     <a ng-href="#/inventory/item/{{ item.id }}">
@@ -17,6 +18,7 @@ Welcome to Admin Inventory Set Show
       <p>
         {{ item.id }} - {{ item.name }}
       </p>
+      {{ item.default_price | currency: "$" }}
     </a>
   </div>
 </div>
