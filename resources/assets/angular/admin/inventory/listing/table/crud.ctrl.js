@@ -1,6 +1,5 @@
 angular.module("absolve.admin.inventory.listing.table")
-  .controller("InventoryListingTableRowController", [
+  .controller("InventoryListingTableCrudController", [
     "$scope",
     function($scope){
-
   }]);

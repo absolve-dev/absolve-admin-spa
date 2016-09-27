@@ -1,7 +1,26 @@
-Hello Inventory Listing Table
-
-<ul>
-  <li ng-repeat="listingRow in listings">
-    <inventory-listing-table-row listing-row="listingRow"></inventory-listing-table-row>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>Inventory Listings</h4>
+    <inventory-listing-create></inventory-listing-create>
   </div>
-</ul>
+  <table class="table table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>&nbsp;</th><!--placeholder for create-->
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="listing in listings">
+        <td>{{ listing.id }} - {{  listing.name  }}</td>
+        <td>{{ listing.quantity }}</td>
+        <td>{{ listing.price | currency : "$" : 2 }}</td>
+        <td>
+          <inventory-listing-table-crud></inventory-listing-table-crud>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
