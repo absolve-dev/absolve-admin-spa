@@ -12,16 +12,20 @@ use App\InventoryListing;
 class InventoryListingController extends Controller
 {
     //
-    public function index(){
-      // get method
-      return \Response::json("hello inventory listing index");
-    }
-    public function create(){
+    public function create(Request $request){
       // post method
-      return \Response::json("hello inventory listing create");
+      $newInventoryListing = InventoryListing::create(array(
+        "inventory_item_id" => $request->input("inventory_item_id"),
+        "name" => $request->input("name"),
+        "active" => $request->input("active"),
+        "price" => $request->input("price"),
+        "quantity" => $request->input("quantity")
+      ));
+      return \Response::json($newInventoryListing);
     }
-
+    /*
     public function show(Request $request, $inventoryListingId){
+      // NOT IMPLEMENTED !!!
       // get method
       if(!is_numeric($inventoryListingId)){
         // must be numeric so stop
@@ -32,6 +36,7 @@ class InventoryListingController extends Controller
       }
       return \Response::json("hello inventory listing show");
     }
+    */
     public function update(Request $request, $inventoryListingId){
       // post method
       if(!is_numeric($inventoryListingId)){
@@ -42,5 +47,16 @@ class InventoryListingController extends Controller
         ], 400);
       }
       return \Response::json("hello inventory listing update");
+    }
+    public function delete(Request $request, $inventoryListingId){
+      // post method
+      if(!is_numeric($inventoryListingId)){
+        // must be numeric so stop
+        return \Response::json([
+          "code" => 400,
+          "message" => "Not a valid inventory listing ID"
+        ], 400);
+      }
+      return \Response::json("hello inventory listing delete");
     }
 }
