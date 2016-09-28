@@ -10,7 +10,6 @@ angular.module("absolve.admin.inventory.listing")
         price: 0.0,
         quantity: 0,
       };
-      console.log($scope.newInventoryListingData);
       $scope.submitCreate = function(){
         inventoryListingService.create($scope.newInventoryListingData, function(){});
       };

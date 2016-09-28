@@ -13,10 +13,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="listing in listings">
-        <td>{{ listing.id }} - {{  listing.name  }}</td>
-        <td>{{ listing.quantity }}</td>
-        <td>{{ listing.price | currency : "$" : 2 }}</td>
+      <tr ng-repeat="inventoryListing in listings">
+        <td>{{ inventoryListing.id }} - {{  inventoryListing.name  }}</td>
+        <td>{{ inventoryListing.quantity }}</td>
+        <td>{{ inventoryListing.price | currency : "$" : 2 }}</td>
         <td>
           <inventory-listing-table-crud></inventory-listing-table-crud>
         </td>

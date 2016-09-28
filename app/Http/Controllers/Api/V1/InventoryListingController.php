@@ -46,10 +46,17 @@ class InventoryListingController extends Controller
           "message" => "Not a valid inventory listing ID"
         ], 400);
       }
-      return \Response::json("hello inventory listing update");
+      $updateInventoryListing = InventoryListing::find($inventoryListingId);
+      $updateInventoryListing->update(array(
+        "name" => $request->input("name"),
+        "active" => $request->input("active"),
+        "price" => $request->input("price"),
+        "quantity" => $request->input("quantity"),
+      ));
+      return \Response::json($updateInventoryListing);
     }
     public function delete(Request $request, $inventoryListingId){
-      // post method
+      // get method
       if(!is_numeric($inventoryListingId)){
         // must be numeric so stop
         return \Response::json([
@@ -57,6 +64,7 @@ class InventoryListingController extends Controller
           "message" => "Not a valid inventory listing ID"
         ], 400);
       }
+      InventoryListing::destroy($inventoryListingId);
       return \Response::json("hello inventory listing delete");
     }
 }

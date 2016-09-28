@@ -2,21 +2,33 @@ angular.module("absolve.admin.inventory.listing")
   .service("inventoryListingService", ["$http", "inventoryItemService", function($http, inventoryItemService){
     this.create = function(newInventoryListingData, successCallback){
       $http.post("/api/v1/inventory/listing/", {
-        // NOT IMPLEMENTED !!!
         inventory_item_id: newInventoryListingData.inventory_item_id,
         name: newInventoryListingData.name,
         active: newInventoryListingData.active,
         price: newInventoryListingData.price,
         quantity: newInventoryListingData.quantity
       }).then(function(successResponse){
-        if(successResponse.data.json_data){
-          successResponse.data.json_data = JSON.parse(successResponse.data.json_data);
-        }
         successCallback(successResponse.data);
       }, function(failureResponse){
-
-      });;
+      });
     };
+    this.update = function(inventoryListingId, updateInventoryListingData, successCallback){
+      $http.post("/api/v1/inventory/listing/" + inventoryListingId, {
+        name: updateInventoryListingData.name,
+        active: updateInventoryListingData.active,
+        price: updateInventoryListingData.price,
+        quantity: updateInventoryListingData.quantity
+      }).then(function(successResponse){
+        successCallback(successResponse.data);
+      }, function(failureResponse){
+      });
+    };
+    this.delete = function(inventoryListingId, successCallback){
+      $http.get("/api/v1/inventory/listing/" + inventoryListingId + "/delete").then(function(successResponse){
+        successCallback(successResponse.data);
+      }, function(failureResponse){
+      });
+    }
     this.indexByItemId = function(inventoryItemId, successCallback){
       // must implement: failure callback
       // inventory item show also includes listings

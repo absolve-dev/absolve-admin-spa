@@ -44,9 +44,9 @@ Route::group(["prefix" => "/api/v1", "namespace" => "Api\V1"], function(){
       Route::post("/{inventoryItemId}", "InventoryItemController@update");
     });
     Route::group(["prefix" => "/listing"], function(){
-      Route::get("/", "InventoryListingController@index");
       Route::post("/", "InventoryListingController@create");
-      Route::get("/{inventoryListingId}", "InventoryListingController@show");
+      Route::get("/{inventoryListingId}/delete", "InventoryListingController@delete");
+      //Route::get("/{inventoryListingId}", "InventoryListingController@show");
       Route::post("/{inventoryListingId}", "InventoryListingController@update");
     });
     Route::get("/", "InventoryController@index");
