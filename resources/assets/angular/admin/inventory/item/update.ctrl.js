@@ -1,7 +1,7 @@
 angular.module("absolve.admin.inventory.item")
   .controller("InventoryItemUpdateController", [
-    "$scope", "inventoryItemService",
-    function($scope, inventoryItemService){
+    "$scope", "$route", "inventoryItemService",
+    function($scope, $route, inventoryItemService){
       $scope.updateInventoryItemData = {
         // defaults
         name: $scope.inventoryItem.name,
@@ -12,7 +12,11 @@ angular.module("absolve.admin.inventory.item")
         inventoryItemService.update(
           $scope.inventoryItem.id,
           $scope.updateInventoryItemData,
-          function(){ //success callback
+          function(){
+            // success callback
+            $(".modal").on("hidden.bs.modal", function(e){
+              $route.reload();
+            }).modal('hide');
           }
         );
       };

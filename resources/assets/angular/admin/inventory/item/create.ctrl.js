@@ -1,7 +1,7 @@
 angular.module("absolve.admin.inventory.item")
   .controller("InventoryItemCreateController", [
-    "$scope", "inventoryItemService",
-    function($scope, inventoryItemService){
+    "$scope", "$route", "inventoryItemService",
+    function($scope, $route, inventoryItemService){
       $scope.newInventoryItemData = {
         // defaults
         name: "",
@@ -10,7 +10,12 @@ angular.module("absolve.admin.inventory.item")
         default_price: 0.0
       };
       $scope.submitCreate = function(){
-        inventoryItemService.create($scope.newInventoryItemData, function(){});
+        inventoryItemService.create($scope.newInventoryItemData, function(){
+          // success callback
+          $(".modal").on("hidden.bs.modal", function(e){
+            $route.reload();
+          }).modal('hide');
+        });
       };
     }
   ]);

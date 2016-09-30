@@ -1,7 +1,7 @@
 angular.module("absolve.admin.inventory.listing.table")
   .controller("InventoryListingTableCrudController", [
-    "$scope", "inventoryListingService",
-    function($scope, inventoryListingService){
+    "$scope", "$route", "inventoryListingService",
+    function($scope, $route, inventoryListingService){
       $scope.updateInventoryListingData = {
         name: $scope.inventoryListing.name,
         active: $scope.inventoryListing.active,
@@ -13,14 +13,22 @@ angular.module("absolve.admin.inventory.listing.table")
         inventoryListingService.update(
           $scope.inventoryListing.id,
           $scope.updateInventoryListingData,
-          function(){ //success callback
+          function(){
+            // success callback
+            $(".modal").on("hidden.bs.modal", function(e){
+              $route.reload();
+            }).modal('hide');
           }
         );
       };
       $scope.submitDelete = function(){
         inventoryListingService.delete(
           $scope.inventoryListing.id,
-          function(){ // success callback
+          function(){
+            // success callback
+            $(".modal").on("hidden.bs.modal", function(e){
+              $route.reload();
+            }).modal('hide');
           }
         );
       }
