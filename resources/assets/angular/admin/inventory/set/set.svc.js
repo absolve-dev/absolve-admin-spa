@@ -34,5 +34,13 @@ angular.module("absolve.admin.inventory.set")
 
         });
     };
+    this.delete = function(inventorySetId, successCallback){
+      $http.delete("api/v1/inventory/set/" + inventorySetId)
+        .then(function(successResponse){
+          successCallback(successResponse.data);
+        }, function(failureResponse){
+
+        });
+    };
 
   });
