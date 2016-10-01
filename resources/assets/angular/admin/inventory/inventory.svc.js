@@ -35,9 +35,16 @@ angular.module("absolve.admin.inventory")
 
         });
     };
+    this.show = function(inventoryId, successCallback){
+      $http.get("/api/v1/inventory/" + inventoryId)
+        .then(function(successResponse){
+          successCallback(successResponse.data);
+        }, function(failureResponse){
 
-    this.show = function(catalogId, successCallback){
-      $http.get("/api/v1/inventory/" + catalogId)
+        });
+    };
+    this.delete = function(inventoryId, successCallback){
+      $http.delete("api/v1/inventory/" + inventoryId)
         .then(function(successResponse){
           successCallback(successResponse.data);
         }, function(failureResponse){
