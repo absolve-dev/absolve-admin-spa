@@ -53,4 +53,17 @@ class InventorySetController extends Controller
       ));
       return \Response::json($updateInventorySet);
     }
+
+    public function delete(Request $request, $inventorySetId){
+      // get method
+      if(!is_numeric($inventorySetId)){
+        // must be numeric so stop
+        return \Response::json([
+          "code" => 400,
+          "message" => "Not a valid inventory set ID"
+        ], 400);
+      }
+      InventorySet::destroy($inventorySetId);
+      return \Response::json("hello inventory set delete");
+    }
 }
