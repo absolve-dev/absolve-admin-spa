@@ -20,7 +20,8 @@ class InventoryController extends Controller
       // post method
       $newInventory = Inventory::create(array(
         "name" => $request->input("name"),
-        "active" => $request->input("active")
+        "active" => $request->input("active"),
+        "catalog_id" => $request->input("catalog_id")
       ));
       return \Response::json($newInventory);
     }

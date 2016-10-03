@@ -1,8 +1,11 @@
 Welcome to Admin Catalog Show
 
 <div class="row" ng-if="catalog">
-  <div class="col-xs-12">
+  <div class="col-xs-10">
     name: {{ catalog.name }}
+  </div>
+  <div class="col-xs-2">
+    <inventory-create-from-catalog></inventory-create-from-catalog>
   </div>
   <div class="col-xs-12 col-md-4 col-lg-3" ng-repeat="set in catalog.sets" style="text-align:center;">
     <a ng-href="#catalog/set/{{ set.id }}">

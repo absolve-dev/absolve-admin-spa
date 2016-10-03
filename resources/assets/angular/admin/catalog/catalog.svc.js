@@ -1,7 +1,6 @@
 angular.module("absolve.admin.catalog")
-  .service("catalogService", function($http){
+  .service("catalogService", function($http, inventoryService){
     // returns "this"
-
     this.index = function(successCallback){
       $http.get("/api/v1/catalog")
         .then(function(successResponse){
@@ -10,7 +9,6 @@ angular.module("absolve.admin.catalog")
 
         });
     };
-
     this.show = function(catalogId, successCallback){
       $http.get("/api/v1/catalog/" + catalogId)
         .then(function(successResponse){
@@ -19,5 +17,8 @@ angular.module("absolve.admin.catalog")
 
         });
     };
+    this.createInventoryFromCatalog = function(catalogId, successCallback){
+      inventoryService.createFromCatalog(catalogId, successCallback);
+    }
 
   });

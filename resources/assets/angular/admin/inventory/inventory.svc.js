@@ -6,7 +6,8 @@ angular.module("absolve.admin.inventory")
       // check for properly passed inventory data
       $http.post("/api/v1/inventory", {
         name: newInventoryData.name,
-        active: newInventoryData.active
+        active: newInventoryData.active,
+        catalog_id: newInventoryData.catalog_id,
         //image: newInventoryData.image
       }).success(function(successResponse) {
         successCallback(successResponse.data);
@@ -14,6 +15,14 @@ angular.module("absolve.admin.inventory")
         console.log(response);
       });
     };
+    this.createFromCatalog = function(catalogId, successCallback){
+      var newInventoryData = {
+        name: " ",
+        active: true,
+        catalog_id: catalogId
+      };
+      this.create(newInventoryData, successCallback);
+    }
     this.update = function(inventoryId, updateInventoryData, successCallback){
       // check for properly passed inventory id and data
       $http.post("/api/v1/inventory/" + inventoryId, {
