@@ -28,6 +28,9 @@ class CatalogSet extends Model
       return ($region && $bucket) ? "https://s3-$region.amazonaws.com/$bucket/$path" : false;
     }
     */
+    public function catalog(){
+      return $this->belongsTo("App\Catalog");
+    }
     public function catalogItems(){
       return $this->hasMany(CatalogItem::class);
     }

@@ -1,5 +1,5 @@
 angular.module("absolve.admin.catalog.set")
-  .service("catalogSetService", function($http){
+  .service("catalogSetService", function($http, inventorySetService){
     // returns "this"
 
     this.show = function(catalogSetId, successCallback){
@@ -9,6 +9,9 @@ angular.module("absolve.admin.catalog.set")
         }, function(failureResponse){
 
         });
+    };
+    this.createInventorySetFromCatalogSet = function(catalogSetId, successCallback){
+      inventorySetService.createFromCatalogSet(catalogSetId, successCallback);
     };
 
   });

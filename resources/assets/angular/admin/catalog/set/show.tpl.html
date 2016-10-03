@@ -1,9 +1,12 @@
 Welcome to Admin Catalog Set Show
 
 <div class="row" ng-if="catalogSet">
-  <div class="col-xs-12">
+  <div class="col-xs-10">
     <img ng-src="{{ catalogSet.default_image_url }}" style="height:150px; max-width:100%;"><br>
     name: {{ catalogSet.name }}
+  </div>
+  <div class="col-xs-2">
+    <inventory-set-create-from-catalog-set></inventory-set-create-from-catalog-set>
   </div>
   <div class="col-xs-12 col-md-4 col-lg-3" ng-repeat="item in catalogSet.items" style="text-align:center;">
     <a ng-href="#/catalog/item/{{ item.id }}">
