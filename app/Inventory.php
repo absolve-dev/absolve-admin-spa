@@ -28,6 +28,10 @@ class Inventory extends Model
     public function getImageUrlAttribute($value){
       return ($this->catalog && !$value) ? $this->catalog->default_image_url : $value;
     }
+    public function getNameAttribute($value){
+      // use catalog name if there is an attached catalog
+      return $this->catalog ? $this->catalog->name : $value;
+    }
 
     // other methods
     public function getInventorySetsSummary(){

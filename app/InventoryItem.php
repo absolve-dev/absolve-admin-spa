@@ -40,4 +40,8 @@ class InventoryItem extends Model
     public function getImageUrlAttribute($value){
       return ($this->catalogItem && !$value) ? $this->catalogItem->default_image_url : $value;
     }
+    public function getNameAttribute($value){
+      // use catalog name if there is an attached catalog
+      return $this->catalogItem ? $this->catalogItem->name : $value;
+    }
 }

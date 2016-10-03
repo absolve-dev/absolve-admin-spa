@@ -41,6 +41,11 @@ class InventorySet extends Model
 
   // fill mutators
   public function getImageUrlAttribute($value){
+    // if there is no image, and the catalog set has one
     return ($this->catalogSet && !$value) ? $this->catalogSet->default_image_url : $value;
+  }
+  public function getNameAttribute($value){
+    // use catalog name if there is an attached catalog
+    return $this->catalogSet ? $this->catalogSet->name : $value;
   }
 }
