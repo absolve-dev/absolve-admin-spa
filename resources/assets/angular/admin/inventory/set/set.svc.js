@@ -3,7 +3,7 @@ angular.module("absolve.admin.inventory.set")
     // returns "this"
     this.create = function(newInventorySetData, successCallback){
       // check for properly passed data
-      $http.post("/api/v1/inventory/set/", {
+      $http.post("/api/v1/inventory/set", {
         name: newInventorySetData.name,
         active: newInventorySetData.active,
         inventory_id: newInventorySetData.inventory_id,
