@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Inventory;
+
 class InventorySet extends Model
 {
   //
@@ -24,6 +26,17 @@ class InventorySet extends Model
   public function inventoryItems(){
     return $this->hasMany("App\InventoryItem");
   }
+  public function inventory(){
+    return $this->belongsTo("App\Inventory");
+  }
+
+  public static function boot(){
+    parent::boot();
+    InventorySet::creating(function($inventorySet){
+      // add before create hook to get/create the damn parent inventory if it isnt already there
+      $inventorySet->getParentInventory();
+    });
+  }
 
   public function getInventoryItemsSummary(){
     $inventoryItems = $this->inventoryItems;
@@ -39,8 +52,25 @@ class InventorySet extends Model
     return $finalInventoryItems;
   }
 
+  public function getParentInventory(){
+    $parentInventory = $this->inventory;
+    // parent inventory SHOULD exist if it has a linked catalog set
+    if(!$parentInventory && $this->catalogSet){
+      $parentInventory = Inventory::firstOrCreate(array(
+        "catalog_id" => $this->catalogSet->catalog_id
+      ));
+      $this->inventory_id = $parentInventory->id;
+    }
+    return $parentInventory;
+  }
+
   // fill mutators
   public function getImageUrlAttribute($value){
+    // if there is no image, and the catalog set has one
     return ($this->catalogSet && !$value) ? $this->catalogSet->default_image_url : $value;
+  }
+  public function getNameAttribute($value){
+    // use catalog name if there is an attached catalog
+    return $this->catalogSet ? $this->catalogSet->name : $value;
   }
 }

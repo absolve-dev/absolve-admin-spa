@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\InventorySet;
+
 class InventoryItem extends Model
 {
     protected $fillable = [
@@ -21,6 +23,16 @@ class InventoryItem extends Model
     public function inventoryListings(){
       return $this->hasMany("App\InventoryListing");
     }
+    public function inventorySet(){
+      return $this->belongsTo("App\InventorySet");
+    }
+
+    public static function boot(){
+      parent::boot();
+      InventoryItem::creating(function($inventoryItem){
+        $inventoryItem->getParentInventorySet();
+      });
+    }
 
     public function getInventoryListingsSummary(){
       $inventoryListings = $this->inventoryListings;
@@ -36,8 +48,24 @@ class InventoryItem extends Model
       return $finalInventoryListings;
     }
 
+    public function getParentInventorySet(){
+      $parentInventorySet = $this->inventory_set;
+      // parent inventory set SHOULD exist if it has a linked catalog item
+      if(!$parentInventorySet && $this->catalogItem){
+        $parentInventorySet = InventorySet::firstOrCreate(array(
+          "catalog_set_id" => $this->catalogItem->catalog_set_id
+        ));
+        $this->inventory_set_id = $parentInventorySet->id;
+      }
+      return $parentInventorySet;
+    }
+
     // fill mutators
     public function getImageUrlAttribute($value){
       return ($this->catalogItem && !$value) ? $this->catalogItem->default_image_url : $value;
+    }
+    public function getNameAttribute($value){
+      // use catalog name if there is an attached catalog
+      return $this->catalogItem ? $this->catalogItem->name : $value;
     }
 }

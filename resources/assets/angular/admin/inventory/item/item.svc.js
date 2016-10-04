@@ -7,6 +7,7 @@ angular.module("absolve.admin.inventory.item")
         active: newInventoryItemData.active,
         inventory_set_id: newInventoryItemData.inventory_set_id,
         default_price: newInventoryItemData.default_price,
+        catalog_item_id: newInventoryItemData.catalog_item_id,
       }).then(function(successResponse){
         if(successResponse.data.json_data){
           successResponse.data.json_data = JSON.parse(successResponse.data.json_data);
@@ -15,6 +16,15 @@ angular.module("absolve.admin.inventory.item")
       }, function(failureResponse){
 
       });
+    };
+    this.createFromCatalogItem = function(catalogItemId, successCallback){
+      var newInventoryItemData = {
+        name: "",
+        active: true,
+        catalog_item_id: catalogItemId,
+        default_price: 0.0,
+      };
+      this.create(newInventoryItemData, successCallback);
     };
     this.update = function(inventoryItemId, updateInventoryItemData, successCallback){
       $http.post("/api/v1/inventory/item/" + inventoryItemId, {

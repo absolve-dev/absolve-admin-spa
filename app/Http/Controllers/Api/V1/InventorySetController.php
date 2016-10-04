@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\InventorySet;
+use App\Inventory;
+use App\CatalogSet;
 
 class InventorySetController extends Controller
 {
@@ -15,7 +17,8 @@ class InventorySetController extends Controller
       $newInventorySet = InventorySet::create(array(
         "name" => $request->input("name"),
         "active" => $request->input("active"),
-        "inventory_id" => $request->input("inventory_id")
+        "inventory_id" => $request->input("inventory_id"),
+        "catalog_set_id" => $request->input("catalog_set_id"),
       ));
       // post method
       return \Response::json($newInventorySet);
