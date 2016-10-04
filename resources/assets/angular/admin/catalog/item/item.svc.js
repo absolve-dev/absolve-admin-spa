@@ -1,5 +1,5 @@
 angular.module("absolve.admin.catalog.item")
-  .service("catalogItemService", function($http){
+  .service("catalogItemService", function($http, inventoryItemService){
     // returns "this"
 
     this.show = function(catalogItemId, successCallback){
@@ -8,8 +8,11 @@ angular.module("absolve.admin.catalog.item")
           successResponse.data.json_data = JSON.parse(successResponse.data.json_data);
           successCallback(successResponse.data);
         }, function(failureResponse){
-          
+
         });
+    };
+    this.createInventoryItemFromCatalogItem = function(catalogItemId, successCallback){
+      inventoryItemService.createFromCatalogItem(catalogItemId, successCallback);
     };
 
   });

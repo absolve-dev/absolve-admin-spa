@@ -18,7 +18,7 @@ class InventoryItemController extends Controller
         "active" => $request->input("active"),
         "inventory_set_id" => $request->input("inventory_set_id"),
         "default_price" => $request->input("default_price"),
-
+        "catalog_item_id" => $request->input("catalog_item_id"),
       ));
       // post method
       return \Response::json($newInventoryItem);

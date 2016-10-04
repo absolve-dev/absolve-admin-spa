@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\InventorySet;
+
 class InventoryItem extends Model
 {
     protected $fillable = [
@@ -21,6 +23,16 @@ class InventoryItem extends Model
     public function inventoryListings(){
       return $this->hasMany("App\InventoryListing");
     }
+    public function inventorySet(){
+      return $this->belongsTo("App\InventorySet");
+    }
+
+    public static function boot(){
+      parent::boot();
+      InventoryItem::creating(function($inventoryItem){
+        $inventoryItem->getParentInventorySet();
+      });
+    }
 
     public function getInventoryListingsSummary(){
       $inventoryListings = $this->inventoryListings;
@@ -34,6 +46,18 @@ class InventoryItem extends Model
         $finalInventoryListings[] = $_currentInventoryListing;
       }
       return $finalInventoryListings;
+    }
+
+    public function getParentInventorySet(){
+      $parentInventorySet = $this->inventory_set;
+      // parent inventory set SHOULD exist if it has a linked catalog item
+      if(!$parentInventorySet && $this->catalogItem){
+        $parentInventorySet = InventorySet::firstOrCreate(array(
+          "catalog_set_id" => $this->catalogItem->catalog_set_id
+        ));
+        $this->inventory_set_id = $parentInventorySet->id;
+      }
+      return $parentInventorySet;
     }
 
     // fill mutators
