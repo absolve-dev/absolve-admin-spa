@@ -14,20 +14,11 @@ use App\CatalogSet;
 class InventorySetController extends Controller
 {
     public function create(Request $request){
-      // firstOrCreate inventory if catalog ID is set, but inventory id is not
-      $currentInventoryId = false;
-      if($request->input("catalog_set_id") && !$request->input("inventory_id")){
-        // this needs to be refactored out
-        $catalogId = CatalogSet::find($request->input("catalog_set_id"))->catalog->id;
-        // catalog set always has a catalog
-        $currentInventoryId = Inventory::firstOrCreate(["catalog_id" => $catalogId])->id;
-      }
-
       $newInventorySet = InventorySet::create(array(
         "name" => $request->input("name"),
         "active" => $request->input("active"),
-        "inventory_id" => $request->input("inventory_id") ? $request->input("inventory_id"): $currentInventoryId,
-        "catalog_set_id" => $request->input("catalog_set_id")
+        "inventory_id" => $request->input("inventory_id"),
+        "catalog_set_id" => $request->input("catalog_set_id"),
       ));
       // post method
       return \Response::json($newInventorySet);
