@@ -1,5 +1,5 @@
 angular.module("absolve.admin.auth")
-  .controller("AuthSignoutController", [
+  .controller("AuthLogoutController", [
     "$scope", "$routeParams",
     function($scope, $routeParams){
 

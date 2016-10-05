@@ -1,13 +1,13 @@
 angular.module("absolve.admin.auth").config(function($routeProvider) {
   $routeProvider
-    .when(adminAuthUrlBasePath + "login", {
-      templateUrl: adminAuthHtmlBasePath + "login.tpl.html",
-      controller: "AuthLoginController"
-    }).when(adminAuthUrlBasePath + "signup", {
+    .when(adminAuthUrlBasePath + "signup", {
       templateUrl: adminAuthHtmlBasePath + "signup.tpl.html",
       controller: "AuthSignupController"
-    }).when(adminAuthUrlBasePath + "signout", {
-      templateUrl: adminAuthHtmlBasePath + "signout.tpl.html",
-      controller: "AuthSignoutController"
+    }).when(adminAuthUrlBasePath + "login", {
+      templateUrl: adminAuthHtmlBasePath + "login.tpl.html",
+      controller: "AuthLoginController"
+    }).when(adminAuthUrlBasePath + "logout", {
+      templateUrl: adminAuthHtmlBasePath + "logout.tpl.html",
+      controller: "AuthLogoutController"
     });
 });
