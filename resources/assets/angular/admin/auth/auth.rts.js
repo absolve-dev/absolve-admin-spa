@@ -6,5 +6,8 @@ angular.module("absolve.admin.auth").config(function($routeProvider) {
     }).when(adminAuthUrlBasePath + "signup", {
       templateUrl: adminAuthHtmlBasePath + "signup.tpl.html",
       controller: "AuthSignupController"
+    }).when(adminAuthUrlBasePath + "signout", {
+      templateUrl: adminAuthHtmlBasePath + "signout.tpl.html",
+      controller: "AuthSignoutController"
     });
 });
