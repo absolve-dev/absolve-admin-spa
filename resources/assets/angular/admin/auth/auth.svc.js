@@ -9,6 +9,7 @@ angular.module("absolve.admin.auth")
         email: signupData.email,
         password: signupData.password
       }).then(function(successResponse){
+        localStorageService.set("token", successResponse.data.token);
         successCallback(successResponse);
       }, function(failureResponse){
       });
@@ -19,7 +20,7 @@ angular.module("absolve.admin.auth")
         email: loginData.email,
         password: loginData.password
       }).then(function(successResponse){
-        localStorageService.set("token", response.data.token);
+        localStorageService.set("token", successResponse.data.token);
         successCallback(successResponse);
       }, function(failureResponse){
       });
@@ -31,6 +32,7 @@ angular.module("absolve.admin.auth")
       return localStorageService.get("token");
     }
     this.loggedIn = function(){
+      return false; // for testing purposes
       if(localStorageService.get("token")){
         return true;
       }else{

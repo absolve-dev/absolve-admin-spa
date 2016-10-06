@@ -21,6 +21,11 @@ Route::get('/admin/', function () {
 
 Route::group(["prefix" => "api/v1", "namespace" => "Api\V1"], function(){
 
+  Route::group(["prefix" => "auth"], function(){
+    Route::post("signup", "AuthController@postSignup");
+    Route::post("login", "AuthController@postLogin");
+  });
+
   Route::group(["prefix" => "catalog"], function(){
     Route::group(["prefix" => "set"], function(){
       Route::get("{catalogSetId}", "CatalogSetController@getShow");
@@ -31,7 +36,6 @@ Route::group(["prefix" => "api/v1", "namespace" => "Api\V1"], function(){
     Route::get("", "CatalogController@getIndex");
     Route::get("{catalogId}", "CatalogController@getShow");
   });
-
   Route::group(["prefix" => "inventory"], function(){
     Route::group(["prefix" => "set"], function(){
       Route::post("", "InventorySetController@create");
