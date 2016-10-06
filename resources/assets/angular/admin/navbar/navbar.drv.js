@@ -7,6 +7,11 @@ angular.module("absolve.admin.navbar")
         scope.$on("$routeChangeSuccess", function(event, current, previous){
           var ngSplitPath = $location.path().split('/');
           scope.currentActiveTab = ngSplitPath[1];
+          if(scope.currentActiveTab == "auth"){
+            element.hide();
+          }else{
+            element.show();
+          }
         });
       },
       controller: function($scope){
