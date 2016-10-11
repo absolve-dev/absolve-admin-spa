@@ -3,10 +3,10 @@ angular.module("absolve.admin.auth")
     this.request = function(config){
       // dump the damn token in here if we out here fam
       if(localStorageService.get("token")){
-        if(!config.params){
-          config.params = {};
+        if(!config.headers){
+          config.headers = {};
         }
-        config.params.token = localStorageService.get("token");
+        config.headers["auth-token"] = localStorageService.get("token");
       }
       return config;
     };

@@ -16,7 +16,7 @@ class ApiAuthenticate
      */
     public function handle($request, Closure $next)
     {
-      if(!$request->input("token")){
+      if(!$request->header("auth-token")){
         return \Response::json([
           "code" => 401,
           "message" => "You must be logged in to continue.",
