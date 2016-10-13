@@ -35,14 +35,27 @@ class CatalogSet extends Model
       return $this->hasMany(CatalogItem::class);
     }
 
+    /**
+     * @return Array
+     *
+     * returns a summary array with CatalogSet's name, id and image url
+     * 
+     */
+    public function getSummaryAttribute(){
+      $summaryArray = array(
+        "name" => $this->name,
+        "id" => $this->id,
+        "image_url" => $this->default_image_url
+      );
+
+      return $summaryArray;
+    }
+
     public function getCatalogItemsSummary(){
       $catalogItems = $this->catalogItems;
       $finalCatalogItems = array();
       foreach($catalogItems as $_catalogItem){
-        $_currentCatalogItem = array();
-        $_currentCatalogItem["name"] = $_catalogItem->name;
-        $_currentCatalogItem["id"] = $_catalogItem->id;
-        $_currentCatalogItem["image_url"] = $_catalogItem->default_image_url;
+        $_currentCatalogItem = $_catalogItem->summary;
         $finalCatalogItems[] = $_currentCatalogItem;
       }
       return $finalCatalogItems;
