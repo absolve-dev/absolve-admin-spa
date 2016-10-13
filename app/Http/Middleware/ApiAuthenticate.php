@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+
 use Auth;
+use App\User;
 
 class ApiAuthenticate
 {
@@ -23,7 +25,15 @@ class ApiAuthenticate
         ], 401);
       }else{
         // be sure to check the fucking token
-        return $next($request);
+        $currentUser = User::where("remember_token", $request->header("auth-token"))->first();
+        if($currentUser){
+          return $next($request);
+        }else{
+          return \Response::json([
+            "code" => 401,
+            "message" => "Your credentials are invalid. Please log in and try again.",
+          ], 401);
+        }
       }
     }
 }
