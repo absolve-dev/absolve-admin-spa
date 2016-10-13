@@ -14,13 +14,16 @@ use App\CatalogSet;
 class InventorySetController extends Controller
 {
     public function create(Request $request){
+      // post method
       $newInventorySet = InventorySet::create(array(
         "name" => $request->input("name"),
         "active" => $request->input("active"),
         "inventory_id" => $request->input("inventory_id"),
         "catalog_set_id" => $request->input("catalog_set_id"),
       ));
-      // post method
+      if(!$newInventorySet->inventory->user_id){
+        $newInventorySet->inventory->update(array("user_id" => $this->getCurrentTokenUserId($request)));
+      }
       return \Response::json($newInventorySet);
     }
 

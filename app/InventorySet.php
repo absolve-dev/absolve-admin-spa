@@ -27,14 +27,16 @@ class InventorySet extends Model
     return $this->hasMany("App\InventoryItem");
   }
   public function inventory(){
-    return $this->belongsTo("App\Inventory");
+    return $this->belongsTo("App\Inventory", "inventory_id");
   }
 
   public static function boot(){
     parent::boot();
     InventorySet::creating(function($inventorySet){
       // add before create hook to get/create the damn parent inventory if it isnt already there
-      $inventorySet->getParentInventory();
+      if(!$inventorySet->inventory_id){
+        $inventorySet->inventory_id = $inventorySet->getParentInventory()->id;
+      }
     });
   }
 
@@ -56,10 +58,10 @@ class InventorySet extends Model
     $parentInventory = $this->inventory;
     // parent inventory SHOULD exist if it has a linked catalog set
     if(!$parentInventory && $this->catalogSet){
+      // this is where i have to dump the damn user ID
       $parentInventory = Inventory::firstOrCreate(array(
         "catalog_id" => $this->catalogSet->catalog_id
       ));
-      $this->inventory_id = $parentInventory->id;
     }
     return $parentInventory;
   }
@@ -72,5 +74,11 @@ class InventorySet extends Model
   public function getNameAttribute($value){
     // use catalog name if there is an attached catalog
     return $this->catalogSet ? $this->catalogSet->name : $value;
+  }
+
+  // the fucking actual relation doesnt work all the fucking time,
+  // so i fucking have to cover this shit myself
+  public function getInventoryAttribute(){
+    return $this->inventory_id ? Inventory::find($this->inventory_id) : null;
   }
 }

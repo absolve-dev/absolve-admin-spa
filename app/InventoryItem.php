@@ -30,7 +30,9 @@ class InventoryItem extends Model
     public static function boot(){
       parent::boot();
       InventoryItem::creating(function($inventoryItem){
-        $inventoryItem->getParentInventorySet();
+        if(!$inventoryItem->inventory_set_id){
+          $inventoryItem->inventory_set_id = $inventoryItem->getParentInventorySet()->id;
+        }
       });
     }
 
@@ -55,7 +57,6 @@ class InventoryItem extends Model
         $parentInventorySet = InventorySet::firstOrCreate(array(
           "catalog_set_id" => $this->catalogItem->catalog_set_id
         ));
-        $this->inventory_set_id = $parentInventorySet->id;
       }
       return $parentInventorySet;
     }
@@ -68,4 +69,10 @@ class InventoryItem extends Model
       // use catalog name if there is an attached catalog
       return $this->catalogItem ? $this->catalogItem->name : $value;
     }
+
+    public function getInventoryAttribute(){
+      // cascade up to get the damn inventory
+      return $this->inventorySet->inventory;
+    }
+
 }
