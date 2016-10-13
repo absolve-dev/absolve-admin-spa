@@ -16,6 +16,7 @@ class RemoveDefaultFromInventoryUserId extends Migration
       Schema::table("inventories", function($table){
         $table->integer("user_id")
           ->default(null)
+          ->nullable()
           ->change();
       });
     }

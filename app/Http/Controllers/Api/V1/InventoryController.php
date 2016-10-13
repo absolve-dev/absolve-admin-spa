@@ -21,7 +21,8 @@ class InventoryController extends Controller
       $newInventory = Inventory::create(array(
         "name" => $request->input("name"),
         "active" => $request->input("active"),
-        "catalog_id" => $request->input("catalog_id")
+        "catalog_id" => $request->input("catalog_id"),
+        "user_id" => $this->getCurrentTokenUserId($request)
       ));
       return \Response::json($newInventory);
     }

@@ -13,6 +13,7 @@ class InventoryItemController extends Controller
 {
     //
     public function create(Request $request){
+      // post method
       $newInventoryItem = InventoryItem::create(array(
         "name" => $request->input("name"),
         "active" => $request->input("active"),
@@ -20,7 +21,9 @@ class InventoryItemController extends Controller
         "default_price" => $request->input("default_price"),
         "catalog_item_id" => $request->input("catalog_item_id"),
       ));
-      // post method
+      if(!$newInventoryItem->inventory->user_id){
+        $newInventoryItem->inventory->update(array("user_id" => $this->getCurrentTokenUserId($request)));
+      }
       return \Response::json($newInventoryItem);
     }
 

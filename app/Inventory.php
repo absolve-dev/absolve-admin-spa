@@ -13,7 +13,8 @@ class Inventory extends Model
       "catalog_id",
       "name",
       "active",
-      "image_url"
+      "image_url",
+      "user_id"
     ];
 
     // first, define relationships
