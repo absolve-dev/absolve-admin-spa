@@ -9,10 +9,10 @@ angular.module("absolve.admin.inventory")
         active: newInventoryData.active,
         catalog_id: newInventoryData.catalog_id,
         //image: newInventoryData.image
-      }).success(function(successResponse) {
+      }).then(function(successResponse){
         successCallback(successResponse.data);
-      }).error(function(response) {
-        console.log(response);
+      }, function(failureResponse){
+        console.log(failureResponse);
       });
     };
     this.createFromCatalog = function(catalogId, successCallback){

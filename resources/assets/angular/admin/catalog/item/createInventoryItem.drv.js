@@ -1,17 +1,10 @@
 angular.module("absolve.admin.catalog.item")
-  .controller("InventoryItemCreateFromCatalogItemController", [
-    "$scope", "$route", "catalogItemService",
-    function($scope, $route, catalogItemService){
-      $scope.submitCreate = function(){
-        catalogItemService.createInventoryItemFromCatalogItem(
-          $scope.catalogItem.id,
-          function(){
-            // success callback
-            $(".modal").on("hidden.bs.modal", function(e){
-              $route.reload();
-            }).modal('hide');
-          }
-        );
-      };
-    }
-  ]);
+  .directive("inventoryItemCreateFromCatalogItem", function(){
+    return {
+      restrict: "E",
+      templateUrl: adminCatalogItemHtmlBasePath + "createInventoryItem.tpl.html",
+      link: function(scope, element, attrs){
+      },
+      controller: "InventoryItemCreateFromCatalogItemController"
+    };
+  });

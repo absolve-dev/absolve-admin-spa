@@ -1,14 +1,16 @@
 angular.module("absolve.admin.catalog.set")
   .controller("InventorySetCreateFromCatalogSetController", [
-    "$scope", "$route", "catalogSetService",
-    function($scope, $route, catalogSetService){
+    "$scope", "$location", "catalogSetService",
+    function($scope, $location, catalogSetService){
       $scope.submitCreate = function(){
         catalogSetService.createInventorySetFromCatalogSet(
           $scope.catalogSet.id,
-          function(){
+          function(successData){
             // success callback
             $(".modal").on("hidden.bs.modal", function(e){
-              $route.reload();
+              // redirect to inventory that was just created
+              $location.url("inventory/set/" + successData.id);
+              $scope.$apply();
             }).modal('hide');
           }
         );
