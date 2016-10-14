@@ -22,10 +22,7 @@ class Catalog extends Model
       $catalogSets = $this->catalogSets;
       $finalCatalogSets = array();
       foreach($catalogSets as $_catalogSet){
-        $_currentCatalogSet = array();
-        $_currentCatalogSet["name"] = $_catalogSet->name;
-        $_currentCatalogSet["id"] = $_catalogSet["id"];
-        $_currentCatalogSet["image_url"] = $_catalogSet->default_image_url;
+        $_currentCatalogSet = $_catalogSet->summary;
         $finalCatalogSets[] = $_currentCatalogSet;
       }
       return $finalCatalogSets;
