@@ -24,7 +24,7 @@ class CatalogItem extends Model
      * @return Array
      *
      * returns a summary array with CatalogItem's name, id and image url
-     * 
+     *
      */
     public function getSummaryAttribute(){
       $summaryArray = array(
@@ -33,6 +33,6 @@ class CatalogItem extends Model
         "image_url" => $this->default_image_url
       );
 
-      return $summaryArray
+      return $summaryArray;
     }
 }
