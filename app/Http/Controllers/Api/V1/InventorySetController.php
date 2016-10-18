@@ -20,6 +20,7 @@ class InventorySetController extends Controller
         "active" => $request->input("active"),
         "inventory_id" => $request->input("inventory_id"),
         "catalog_set_id" => $request->input("catalog_set_id"),
+        "user_id" => $this->getCurrentTokenUserId($request),
       ));
       if(!$newInventorySet->inventory->user_id){
         $newInventorySet->inventory->update(array("user_id" => $this->getCurrentTokenUserId($request)));

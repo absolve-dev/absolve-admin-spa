@@ -16,7 +16,8 @@ class InventorySet extends Model
     "inventory_id",
     "name",
     "active",
-    "image_url"
+    "image_url",
+    "user_id"
   ];
 
   // first, define relationships
@@ -60,7 +61,10 @@ class InventorySet extends Model
     if(!$parentInventory && $this->catalogSet){
       // this is where i have to dump the damn user ID
       $parentInventory = Inventory::firstOrCreate(array(
-        "catalog_id" => $this->catalogSet->catalog_id
+        // this set of params pulls the first,
+        // even if not associated to the current user
+        "catalog_id" => $this->catalogSet->catalog_id,
+        "user_id" => $this->user_id,
       ));
     }
     return $parentInventory;

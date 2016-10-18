@@ -13,7 +13,8 @@ class InventoryItem extends Model
       "inventory_set_id",
       "name",
       "active",
-      "default_price"
+      "default_price",
+      "user_id"
     ];
     //
     // first, define relationships
@@ -55,7 +56,10 @@ class InventoryItem extends Model
       // parent inventory set SHOULD exist if it has a linked catalog item
       if(!$parentInventorySet && $this->catalogItem){
         $parentInventorySet = InventorySet::firstOrCreate(array(
-          "catalog_set_id" => $this->catalogItem->catalog_set_id
+          // this set of params pulls the first,
+          // even if not associated to the current user
+          "catalog_set_id" => $this->catalogItem->catalog_set_id,
+          "user_id" => $this->user_id,
         ));
       }
       return $parentInventorySet;

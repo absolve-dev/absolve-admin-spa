@@ -20,6 +20,7 @@ class InventoryItemController extends Controller
         "inventory_set_id" => $request->input("inventory_set_id"),
         "default_price" => $request->input("default_price"),
         "catalog_item_id" => $request->input("catalog_item_id"),
+        "user_id" => $this->getCurrentTokenUserId($request),
       ));
       if(!$newInventoryItem->inventory->user_id){
         $newInventoryItem->inventory->update(array("user_id" => $this->getCurrentTokenUserId($request)));
