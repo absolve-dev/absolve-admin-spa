@@ -32,7 +32,6 @@ angular.module("absolve.admin.auth")
       return localStorageService.get("token");
     }
     this.loggedIn = function(){
-      return false; // for testing purposes
       if(localStorageService.get("token")){
         return true;
       }else{
