@@ -1,9 +1,10 @@
 angular.module("absolve.admin.auth")
   .controller("AuthLogoutController", [
-    "$scope", "$routeParams", "authService",
-    function($scope, $routeParams, authService){
+    "$scope", "$location", "authService",
+    function($scope, $location, authService){
       $scope.submitLogout = function(){
         authService.logout();
+        $location.url("auth/login");
       };
     }
   ]);
