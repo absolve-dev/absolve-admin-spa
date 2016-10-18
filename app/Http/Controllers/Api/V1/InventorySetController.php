@@ -34,10 +34,24 @@ class InventorySetController extends Controller
         // must be numeric so stop
         return \Response::json([
           "code" => 400,
-          "message" => "Not a valid inventory ID"
+          "message" => "Not a valid inventory ID."
         ], 400);
       }
       $inventorySet = InventorySet::find($inventorySetId);
+      if($inventorySet){
+        if($inventorySet->user_id != $this->getCurrentTokenUserId($request)){
+          // if the current user cant match with this shit
+          return \Response::json([
+            "code" => 403,
+            "message" => "You are not allowed to view this inventory set."
+          ], 403);
+        }
+      }else{
+        return \Response::json([
+          "code" => 404,
+          "message" => "No inventory set found."
+        ], 404);
+      }
       return \Response::json(
         array_merge(
           $inventorySet->toArray(),
@@ -50,10 +64,24 @@ class InventorySetController extends Controller
         // must be numeric so stop
         return \Response::json([
           "code" => 400,
-          "message" => "Not a valid inventory ID"
+          "message" => "Not a valid inventory ID."
         ], 400);
       }
       $updateInventorySet = InventorySet::find($inventorySetId);
+      if($updateInventorySet){
+        if($updateInventorySet->user_id != $this->getCurrentTokenUserId($request)){
+          // if the current user cant match with this shit
+          return \Response::json([
+            "code" => 403,
+            "message" => "You are not allowed to update this inventory set."
+          ], 403);
+        }
+      }else{
+        return \Response::json([
+          "code" => 404,
+          "message" => "No inventory set found."
+        ], 404);
+      }
       $updateInventorySet->update(array(
         "name" => $request->input("name"),
         "active" => $request->input("active")
@@ -67,10 +95,25 @@ class InventorySetController extends Controller
         // must be numeric so stop
         return \Response::json([
           "code" => 400,
-          "message" => "Not a valid inventory set ID"
+          "message" => "Not a valid inventory set ID."
         ], 400);
       }
-      InventorySet::destroy($inventorySetId);
-      return \Response::json("hello inventory set delete");
+      $deleteInventorySet = InventorySet::find($inventorySetId);
+      if($deleteInventorySet){
+        if($deleteInventorySet->user_id != $this->getCurrentTokenUserId($request)){
+          // if the current user cant match with this shit
+          return \Response::json([
+            "code" => 403,
+            "message" => "You are not allowed to delete this inventory set."
+          ], 403);
+        }
+      }else{
+        return \Response::json([
+          "code" => 404,
+          "message" => "No inventory set found."
+        ], 404);
+      }
+      $deleteInventorySet->delete();
+      return \Response::json("Inventory set deleted.");
     }
 }

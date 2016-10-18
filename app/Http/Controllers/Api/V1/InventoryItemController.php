@@ -34,10 +34,24 @@ class InventoryItemController extends Controller
         // must be numeric so stop
         return \Response::json([
           "code" => 400,
-          "message" => "Not a valid inventory item ID"
+          "message" => "Not a valid inventory item ID."
         ], 400);
       }
       $inventoryItem = InventoryItem::find($inventoryItemId);
+      if($inventoryItem){
+        if($inventoryItem->user_id != $this->getCurrentTokenUserId($request)){
+          // if the current user cant match with this shit
+          return \Response::json([
+            "code" => 403,
+            "message" => "You are not allowed to view this inventory."
+          ], 403);
+        }
+      }else{
+        return \Response::json([
+          "code" => 404,
+          "message" => "No inventory found."
+        ], 404);
+      }
       return \Response::json(
         array_merge(
           $inventoryItem->toArray(),
@@ -51,10 +65,24 @@ class InventoryItemController extends Controller
         // must be numeric so stop
         return \Response::json([
           "code" => 400,
-          "message" => "Not a valid inventory item ID"
+          "message" => "Not a valid inventory item ID."
         ], 400);
       }
       $updateInventoryItem = InventoryItem::find($inventoryItemId);
+      if($updateInventoryItem){
+        if($updateInventoryItem->user_id != $this->getCurrentTokenUserId($request)){
+          // if the current user cant match with this shit
+          return \Response::json([
+            "code" => 403,
+            "message" => "You are not allowed to update this inventory item."
+          ], 403);
+        }
+      }else{
+        return \Response::json([
+          "code" => 404,
+          "message" => "No inventory item found."
+        ], 404);
+      }
       $updateInventoryItem->update(array(
         "name" => $request->input("name"),
         "active" => $request->input("active"),
@@ -68,10 +96,25 @@ class InventoryItemController extends Controller
         // must be numeric so stop
         return \Response::json([
           "code" => 400,
-          "message" => "Not a valid inventory item ID"
+          "message" => "Not a valid inventory item ID."
         ], 400);
       }
-      InventoryItem::destroy($inventoryItemId);
-      return \Response::json("hello inventory item delete");
+      $deleteInventoryItem = InventoryItem::find($inventoryItemId);
+      if($deleteInventoryItem){
+        if($deleteInventoryItem->user_id != $this->getCurrentTokenUserId($request)){
+          // if the current user cant match with this shit
+          return \Response::json([
+            "code" => 403,
+            "message" => "You are not allowed to delete this inventory item."
+          ], 403);
+        }
+      }else{
+        return \Response::json([
+          "code" => 404,
+          "message" => "No inventory item found."
+        ], 404);
+      }
+      $deleteInventoryItem->delete();
+      return \Response::json("Inventory item deleted.");
     }
 }
