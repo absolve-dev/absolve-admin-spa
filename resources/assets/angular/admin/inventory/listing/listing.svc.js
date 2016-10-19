@@ -1,7 +1,7 @@
 angular.module("absolve.admin.inventory.listing")
   .service("inventoryListingService", ["$http", "inventoryItemService", function($http, inventoryItemService){
     this.create = function(newInventoryListingData, successCallback){
-      $http.post("/api/v1/inventory/listing/", {
+      $http.post("/api/v1/inventory/listing", {
         inventory_item_id: newInventoryListingData.inventory_item_id,
         name: newInventoryListingData.name,
         active: newInventoryListingData.active,
