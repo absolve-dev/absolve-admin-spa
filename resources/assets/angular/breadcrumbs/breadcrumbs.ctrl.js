@@ -4,6 +4,7 @@ angular.module("absolve.breadcrumbs")
     function($scope, $rootScope, breadcrumbsService){
       $scope.breadcrumbs = [];
       $rootScope.$on("updateBreadcrumbs", function(event, breadcrumbs){
+        $scope.breadcrumbs = breadcrumbs;
         console.log("i like to on bread", breadcrumbs);
       });
     }

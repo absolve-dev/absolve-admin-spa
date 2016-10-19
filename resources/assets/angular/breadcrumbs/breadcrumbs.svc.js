@@ -6,19 +6,28 @@ angular.module("absolve.breadcrumbs")
 
     // push breadcrumbs onto set
     this.pushBreadcrumb = function(breadcrumbData){
-      breadcrumbs.push(breadcrumbData);
-      console.log("i to push bread", this.getBreadcrumbs());
+      // check if the breadcrumb has a name and link, reject if not
+      if(breadcrumbData.text && breadcrumbData.link){
+        breadcrumbData.link = "#" + breadcrumbData.link;
+        breadcrumbs.push(breadcrumbData);
+        console.log("i to push bread", this.getBreadcrumbs());
+      }
     };
-    this.finishBreadcrumbs = function(){
-      $rootScope.$emit("updateBreadcrumbs", breadcrumbs);
+    this.initBreadcrumbs = function(){
+      updateBreadcrumbs();
     };
     this.getBreadcrumbs = function(){
       return breadcrumbs;
     };
     this.clearBreadcrumbs = function(){
       breadcrumbs = [];
+      updateBreadcrumbs();
       console.log("i like to clear bread", this.getBreadcrumbs());
     };
+
+    function updateBreadcrumbs(){
+      $rootScope.$emit("updateBreadcrumbs", breadcrumbs);
+    }
   }]);
 
 angular.module("absolve.breadcrumbs").run([
@@ -26,11 +35,18 @@ angular.module("absolve.breadcrumbs").run([
   function($rootScope, breadcrumbsService){
     $rootScope.$on("$routeChangeSuccess", function(event, current, previous){
       breadcrumbsService.clearBreadcrumbs();
-      breadcrumbsService.pushBreadcrumb("i");
-      breadcrumbsService.pushBreadcrumb("woke");
-      breadcrumbsService.pushBreadcrumb("up");
-      breadcrumbsService.pushBreadcrumb("like");
-      breadcrumbsService.pushBreadcrumb("this");
-      breadcrumbsService.finishBreadcrumbs();
+      /*
+      // breadcrumb example code, i guess
+      $.each([
+        {text:"i", link: "/"},
+        {text:"woke", link: "/"},
+        {text:"up", link: "/"},
+        {text:"like", link: "/"},
+        {text:"this", link: "/"}
+      ], function(index, value){
+        breadcrumbsService.pushBreadcrumb(value);
+      });
+      breadcrumbsService.initBreadcrumbs();
+      */
     });
 }]);

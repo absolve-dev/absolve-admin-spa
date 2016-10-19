@@ -1,1 +1,7 @@
-Hello Breadcrumbs
+<div class="row" if="breadcrumbs">
+  <div class="col-xs-12">
+    <div ng-repeat="(index, breadcrumb) in breadcrumbs" style="display: inline;">
+      <span ng-if="index != 0"> &raquo; </span><a ng-href="{{ breadcrumb.link }}">{{ breadcrumb.text }}</a>
+    </div>
+  </div>
+</div>
