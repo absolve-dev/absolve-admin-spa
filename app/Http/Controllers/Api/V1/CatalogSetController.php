@@ -22,6 +22,7 @@ class CatalogSetController extends Controller
         ], 400);
       }
       $showCatalogSet = CatalogSet::find( (int)$catalogSetId );
+      $showCatalogSet->load("catalog"); // eager load the damn relations
       return \Response::json(
         array_merge(
           $showCatalogSet->toArray(),

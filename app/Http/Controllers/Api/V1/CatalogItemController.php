@@ -22,8 +22,10 @@ class CatalogItemController extends Controller
         ], 400);
       }
       $showCatalogItem = CatalogItem::find( (int)$catalogItemId );
+      $showCatalogItem->load("catalogSet.catalog"); // eager load the damn relations
       return \Response::json(
-          $showCatalogItem->toArray()
+        // load catalog set and the damn catalog
+        $showCatalogItem->toArray()
       );
     }
 }

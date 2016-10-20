@@ -52,6 +52,7 @@ class InventoryItemController extends Controller
           "message" => "No inventory found."
         ], 404);
       }
+      $inventoryItem->load("inventorySet.inventory"); // eager load relations to include in output
       return \Response::json(
         array_merge(
           $inventoryItem->toArray(),
