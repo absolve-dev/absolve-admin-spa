@@ -24,7 +24,7 @@ class CatalogSetController extends Controller
       $showCatalogSet = CatalogSet::find( (int)$catalogSetId );
       return \Response::json(
         array_merge(
-          $showCatalogSet->toArray(),
+          $showCatalogSet->load("catalog")->toArray(),
           ["items" => $showCatalogSet->getCatalogItemsSummary()]
         )
       );

@@ -23,7 +23,8 @@ class CatalogItemController extends Controller
       }
       $showCatalogItem = CatalogItem::find( (int)$catalogItemId );
       return \Response::json(
-          $showCatalogItem->toArray()
+        // load catalog set and the damn catalog
+        $showCatalogItem->load("catalogSet.catalog")->toArray()
       );
     }
 }
