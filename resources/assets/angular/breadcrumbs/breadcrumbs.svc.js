@@ -6,14 +6,29 @@ angular.module("absolve.breadcrumbs")
 
     // push breadcrumbs onto set
     this.pushBreadcrumb = function(breadcrumbData){
-      // check if the breadcrumb has a name and link, reject if not
+      // check if the breadcrumb has a text and link, reject if not
       if(breadcrumbData.text && breadcrumbData.link){
+        // constrict links to SPA
         breadcrumbData.link = "#" + breadcrumbData.link;
         breadcrumbs.push(breadcrumbData);
         console.log("i to push bread", this.getBreadcrumbs());
       }
     };
-    this.initBreadcrumbs = function(){
+    this.pushObject = function(objectData, basePath){
+      // this shit expects a damn name and id, so turn that shit into a link
+      // so fucking check for that shit
+      // also require a base path to append the link to
+      if(basePath && objectData.name && objectData.id){
+        this.pushBreadcrumb({
+          text: objectData.name,
+          link: basePath + objectData.id
+        });
+      }
+    }
+    this.finishBreadcrumbs = function(){
+      // in practice, there's no need to update the breadcrumbs again
+      // because once this shit is cleared,
+      // the array is passed by reference to the directive
       updateBreadcrumbs();
     };
     this.getBreadcrumbs = function(){
