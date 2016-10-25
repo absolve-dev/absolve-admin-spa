@@ -12,7 +12,7 @@ angular.module("absolve.admin.settings.ebay")
         // to be implemented
         settingsEbayService.save(
           $scope.ebaySettings,
-          function(){
+          function(successResponseData){
             // success callback
             $route.reload();
           });

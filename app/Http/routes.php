@@ -25,6 +25,13 @@ Route::group(["prefix" => "api/v1", "namespace" => "Api\V1"], function(){
     Route::post("signup", "AuthController@postSignup");
     Route::post("login", "AuthController@postLogin");
   });
+  Route::group(["prefix" => "settings", "middleware" => ["api.auth"]], function(){
+    Route::group(["prefix" => "ebay"], function(){
+      // shit is based on the current user, so no need to really pass anything
+      Route::get("", "EbaySettingsController@getIndex");
+      Route::post("update", "EbaySettingsController@postUpdate");
+    });
+  });
   Route::group(["prefix" => "catalog", "middleware" => ["api.auth"]], function(){
     Route::group(["prefix" => "set"], function(){
       Route::get("{catalogSetId}", "CatalogSetController@getShow");
