@@ -7,7 +7,7 @@ use App\Adapters\Ebay\Trading\HttpHeadersViaDefaults;
 use GuzzleHttp\Client;
 
 // can be refactored to an interface if/when required
-class GuzzleRequester{
+class GuzzleRequester implements RequesterInterface{
 
   const DEFAULT_ENDPOINT = "https://api.sandbox.ebay.com/ws/api.dll";
 
