@@ -12,9 +12,9 @@ interface HttpHeadersProvider{
   const EBAY_SITE_ID_HEADER = "X-EBAY-API-SITEID";
 
   // this is as of 27 oct 2016...
-  const EBAY_COMPATIBILITY_LEVEL_DEFAULT = 981;
+  const EBAY_COMPATIBILITY_LEVEL_DEFAULT = 967;
 
-  public function getAllHeadersForCall($callName);
+  public function getAllHeadersForCall($callName, $contentLength);
 
 }
 

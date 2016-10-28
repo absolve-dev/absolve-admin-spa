@@ -2,6 +2,8 @@
 
 namespace App\Adapters\Ebay\Trading;
 
+use App\Adapters\Ebay\Trading\AppKeysetViaEnv;
+
 class HttpHeadersViaDefaults implements HttpHeadersProvider{
 
   protected $appKeyset;
@@ -9,14 +11,18 @@ class HttpHeadersViaDefaults implements HttpHeadersProvider{
   // the only shit this really needs to be complete is a damn call name.
   public function __construct(AppKeysetProvider $appKeysetProvider = null){
     // app keyset only passed if theyre required
-    $this->appKeyset = $appKeysetProvider;
+    $this->appKeyset = $appKeysetProvider ?: new AppKeysetViaEnv;
   }
 
-  public function getAllHeadersForCall($callName){
+  public function getAllHeadersForCall($callName, $contentLength){
     $allHeaders = [];
 
     // set these fuckers one by one,
     // because i might need to throw that ass in an exception
+
+    // add necessary af text/xml content type
+    $allHeaders["Content-Type"] = "text/xml";
+    $allHeaders["Content-Length"] = $contentLength;
 
     // KEYSET REQUIRED CLUB
     if($appKeyset = $this->appKeyset){
@@ -45,7 +51,7 @@ class HttpHeadersViaDefaults implements HttpHeadersProvider{
   }
 
   protected function nukeWith($exceptionString){
-    throw new Exception($exceptionString);
+    throw new \Exception($exceptionString);
   }
 
 }
