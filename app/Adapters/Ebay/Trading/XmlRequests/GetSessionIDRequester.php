@@ -9,7 +9,7 @@ use App\Adapters\Ebay\Xml\XmlResponse;
 // use SimpleXMLElement to build the response
 use SimpleXMLElement;
 
-class getSessionID extends AbstractXmlRequest{
+class getSessionIDRequester extends AbstractXmlRequest{
 
   // this is the only method that needs ruName so fuck it
   // this is just going to be implemented here

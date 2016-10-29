@@ -15,6 +15,21 @@ class XmlResponse{
   public function getResponseXml(){
     return $this->responseXml;
   }
+
+  public function isSuccess(){
+    return (String) $this->Ack === "Success";
+  }
+
+  public function __get($name){
+    // shit will grab from the SimpleXMLElement
+    // grab only fro the direct children
+    foreach($this->responseXml->children() as $child){
+      if($child->getName() === $name){
+        return (String)$child;
+      }
+    }
+    return null;
+  }
 }
 
 ?>
