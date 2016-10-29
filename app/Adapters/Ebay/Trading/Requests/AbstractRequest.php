@@ -9,13 +9,12 @@ use App\Adapters\Ebay\Xml\XmlBuilderInterface;
 use App\Adapters\Ebay\Xml\XmlBuilderViaSimpleXml;
 
 abstract class AbstractRequest{
-  protected $requester, $xmlBuilder;
+  protected $requester;
   public function __construct(
-    HttpHeadersProvider $headersProvider = null,
-    XmlBuilderInterface $xmlBuilder = null){
+    HttpHeadersProvider $headersProvider = null){
       $this->requester = new GuzzleRequester($headersProvider);
-      $this->xmlBuilder = $xmlBuilder ?: new XmlBuilderViaSimpleXml;
   }
+
 }
 
 ?>

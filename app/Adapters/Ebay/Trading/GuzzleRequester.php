@@ -37,7 +37,7 @@ class GuzzleRequester implements RequesterInterface{
       "headers" => $headersArray,
       "body" => $this->bodyString,
     ];
-    var_dump($requestOptions);
+    //var_dump($requestOptions);
 
     // guzzle-specific if im not mistaken?
     $endpoint = $endpoint ?: GuzzleRequester::DEFAULT_ENDPOINT;
