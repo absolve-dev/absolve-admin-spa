@@ -3,14 +3,23 @@
 namespace App\Adapters\Ebay\Trading\Requests;
 
 use App\Adapters\Ebay\Trading\Requests\AbstractRequest;
+use App\Adapters\Ebay\Xml\XmlObject;
 
 class getSessionID extends AbstractRequest{
 
-  public function sendRequest($headersProvider = null){
-    $this->requester->setBodyString(
-      '<?xml version="1.0" encoding="utf-8"?><GetSessionIDRequest xmlns="urn:ebay:apis:eBLBaseComponents"><ErrorLanguage>en_US</ErrorLanguage><WarningLevel>High</WarningLevel><RuName>Absolve_Games-AbsolveG-absolv-rbiwmkb</RuName></GetSessionIDRequest>'
-    );
-    // below return is not properly implement, proof of concept
+  public function sendRequest($ruName){
+    $xmlData = [
+      "element" => "GetSessionIDRequest",
+      "attributes" => ["xmlns" => "urn:ebay:apis:eBLBaseComponents"],
+      "children" => [
+        ["element" => "RuName", "value" => $ruName]
+      ]
+    ];
+    $xmlObject = new XmlObject($xmlData);
+
+    $this->requester->setBodyString( $xmlObject->toXML() );
+
+    // below return is not properly implemented, proof of concept
     return (String)$this->requester->makeRequest("GetSessionID")->getBody();
   }
 
