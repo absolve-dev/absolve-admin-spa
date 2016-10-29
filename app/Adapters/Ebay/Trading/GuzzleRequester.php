@@ -41,6 +41,8 @@ class GuzzleRequester implements RequesterInterface{
 
     // guzzle-specific if im not mistaken?
     $endpoint = $endpoint ?: GuzzleRequester::DEFAULT_ENDPOINT;
+
+    // there should probably be a try-catch somewhere around here; will create when necessary
     $promise = $guzzleClient->requestAsync($this->httpMethod, $endpoint, $requestOptions);
     $result = $promise->wait();
 
