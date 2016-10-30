@@ -1,7 +1,7 @@
-angular.module("absolve.admin.settings.ebay")
+angular.module("absolve.admin.settings.ebay.auth")
   .controller("SettingsEbayAuthLinkController", [
-    "$scope", "settingsEbayService",
-    function($scope, settingsEbayService){
+    "$scope", "settingsEbayAuthService",
+    function($scope, settingsEbayAuthService){
       $scope.authUrl = null;
       var setAuthUrl = function(authUrl){
         $scope.authUrl = authUrl;

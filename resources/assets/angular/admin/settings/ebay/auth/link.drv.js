@@ -1,10 +1,10 @@
-angular.module("absolve.admin.settings.ebay")
+angular.module("absolve.admin.settings.ebay.auth")
   .directive("ebayAuthLink",
     [
     function(){
       return {
         restrict: "E",
-        templateUrl: adminSettingsEbayHtmlBasePath + "ebayAuthLink.tpl.html",
+        templateUrl: adminSettingsEbayAuthHtmlBasePath + "link.tpl.html",
         link: function(scope, element, attrs){
         },
         controller: "SettingsEbayAuthLinkController"
