@@ -11,7 +11,8 @@ class EbaySettings extends Model
 
     protected $fillable = [
       "user_id",
-      "auth_token"
+      "auth_token",
+      "session_id"
     ];
 
     public function user(){
