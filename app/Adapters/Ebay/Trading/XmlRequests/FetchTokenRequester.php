@@ -6,31 +6,32 @@ use App\Adapters\Ebay\Trading\AbstractXmlRequest;
 use App\Adapters\Ebay\Xml\XmlObject;
 use App\Adapters\Ebay\Xml\XmlResponse;
 
-class getSessionIDRequester extends AbstractXmlRequest{
+class FetchTokenRequester extends AbstractXmlRequest{
 
-  // this is the only method that needs ruName so fuck it
-  // this is just going to be implemented here
-  protected $ruName = "";
-  public function setRuName($value){
-    $this->ruName = $value;
+  protected $sessionID = "";
+  public function setSessionID($value){
+    $this->sessionID = $value;
   }
-  public function getRuName(){
-    return $this->ruName ?: env("EBAY_RU_NAME");
+  public function getSessionID(){
+    return $this->sessionID;
   }
 
   public function makeRequest(){
+    if(!$this->sessionID){
+      throw new \Exception("A Session ID is required to 'Fetch Token'.");
+    }
     $xmlData = [
-      "element" => "GetSessionIDRequest",
+      "element" => "FetchTokenRequest",
       "attributes" => ["xmlns" => "urn:ebay:apis:eBLBaseComponents"],
       "children" => [
-        ["element" => "RuName", "value" => $this->getRuName()]
+        ["element" => "SessionID", "value" => $this->getSessionID()]
       ]
     ];
     $xmlObject = new XmlObject($xmlData);
 
     $this->requester->setBodyString( $xmlObject->toXML() );
 
-    $response = $this->requester->makeRequest("GetSessionID");
+    $response = $this->requester->makeRequest("FetchToken");
     // below return is not properly implemented, proof of concept
     return new XmlResponse($response);
   }

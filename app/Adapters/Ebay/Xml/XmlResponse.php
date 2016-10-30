@@ -24,7 +24,7 @@ class XmlResponse{
     // shit will grab from the SimpleXMLElement
     // grab only fro the direct children
     foreach($this->responseXml->children() as $child){
-      if($child->getName() === $name){
+      if($child->getName() == $name){
         return (String)$child;
       }
     }

@@ -45,4 +45,16 @@ class EbaySettingsController extends Controller
       $authUrl = $userAuthService->getAuthNAuthUrl($sessionID);
       return \Response::json($authUrl);
     }
+
+    public function getAuthAccept(Request $request){
+      $ebaySettings = EbaySettings::firstOrCreate([
+        "user_id" => $this->getCurrentTokenUserId($request)
+      ]);
+      $userAuthService = new UserAuthService;
+      $userAuthToken = $userAuthService->fetchTokenFromSessionID($ebaySettings->session_id);
+      $ebaySettings->update([
+        "auth_token" => $userAuthToken
+      ]);
+      return \Response::json();
+    }
 }

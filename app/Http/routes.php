@@ -31,6 +31,7 @@ Route::group(["prefix" => "api/v1", "namespace" => "Api\V1"], function(){
       Route::post("update", "EbaySettingsController@postUpdate");
       Route::group(["prefix" => "auth"], function(){
         Route::get("url", "EbaySettingsController@getAuthUrl");
+        Route::get("accept", "EbaySettingsController@getAuthAccept");
       });
     });
   });
