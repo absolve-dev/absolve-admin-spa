@@ -1,0 +1,12 @@
+<div>
+  <button
+    class="btn btn-primary"
+    ng-click="getAuthUrl()">
+      Get Authentication From eBay
+  </button>
+  <span ng-if="authUrl">
+    <a ng-href="{{ authUrl }}">
+      Auth Link to eBay is Ready
+    </a>
+  </span>
+</div>

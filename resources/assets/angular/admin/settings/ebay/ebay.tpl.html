@@ -2,9 +2,12 @@
   <div class="col-xs-12">
     <h1>eBay Settings</h1>
     eBay Auth Token: <br>
-    <textarea ng-model="ebaySettings.auth_token" rows="8" cols="40"></textarea>
+    <p>{{ ebaySettings.auth_token }}</p>
+    <ebay-auth-link></ebay-auth-link>
+<!--
     <p>
       <button class="btn btn-primary" ng-click="submitSave()">Save Settings</button>
     </p>
+-->
   </div>
 </div>

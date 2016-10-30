@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 use App\EbaySettings;
 
+use App\Adapters\Ebay\Trading\Services\UserAuthService;
+
 class EbaySettingsController extends Controller
 {
     //
@@ -28,5 +30,12 @@ class EbaySettingsController extends Controller
         "auth_token" => $request->input("auth_token")
       ]);
       return \Response::json($ebaySettings);
+    }
+
+    public function getAuthUrl(){
+      $userAuthService = new UserAuthService;
+      $sessionID = $userAuthService->getSessionID();
+      $authUrl = $userAuthService->getAuthNAuthUrl($sessionID);
+      return \Response::json($authUrl);
     }
 }
